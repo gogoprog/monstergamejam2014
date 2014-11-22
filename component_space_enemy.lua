@@ -30,6 +30,8 @@ function ComponentSpaceEnemy:update(dt)
         local e = Factory:createBullet(-200)
         e:insert()
         e.position = vector2(self.entity.position.x, self.entity.position.y)
+
+        gengine.audio.playSound(self.fireSound)
     end
 
     if self.entity.position.y - Map.cameraEntity.position.y < -512 then

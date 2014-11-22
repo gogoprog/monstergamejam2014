@@ -21,6 +21,8 @@ function Factory:init()
             loop = true
         }
         )
+
+    gengine.audio.sound.create("data/limace.fire.ogg")
 end
 
 function Factory:createSpaceShip(camera)
@@ -167,6 +169,7 @@ function Factory:createSpaceEnemy()
     e:addComponent(
         ComponentSpaceEnemy(),
         {
+            fireSound = gengine.audio.sound.get("limace.fire")
         },
         "enemy"
         )
