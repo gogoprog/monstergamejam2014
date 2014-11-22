@@ -8,6 +8,7 @@ Factory = Factory or {}
 function Factory:init()
     gengine.graphics.texture.create("data/tracteur_128.png")
     gengine.graphics.texture.create("data/monster1_fire.png")
+    gengine.graphics.texture.create("data/inner_background.png")
 
     local texture = gengine.graphics.texture.create("data/monster1.png")
 
@@ -139,13 +140,14 @@ function Factory:createStars(texture, layer)
     return e
 end
 
-function Factory:createCamera()
+function Factory:createCamera(w)
     local e = gengine.entity.create()
 
     e:addComponent(
         ComponentCamera(),
         {
-            extent = vector2(1024, 600)
+            extent = vector2(1024, 600),
+            world = w
         },
         "camera"
         )
@@ -193,6 +195,51 @@ function Factory:createBullet(speed)
         ComponentBullet(),
         {
             speed = speed
+        }
+        )
+
+    return e
+end
+
+function Factory:createBlock()
+    local e = gengine.entity.create()
+
+    e:addComponent(
+        ComponentSprite(),
+        {
+            texture = gengine.graphics.texture.get("black"),
+            extent = vector2(32, 32),
+            layer = 0
+        }
+        )
+
+    return e
+end
+
+function Factory:createGridBackground()
+    local e = gengine.entity.create()
+
+    e:addComponent(
+        ComponentSprite(),
+        {
+            texture = gengine.graphics.texture.get("inner_background"),
+            extent = vector2(512, 512),
+            layer = 0,
+            world = 1
+        }
+        )
+
+    return e
+end
+
+function Factory:createInvisibleBlock(w, h)
+    local e = gengine.entity.create()
+
+    e:addComponent(
+        ComponentPhysic(),
+        {
+            extent = vector2(w, h),
+            type = static
         }
         )
 

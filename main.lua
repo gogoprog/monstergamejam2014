@@ -1,5 +1,6 @@
 Map = Map or require 'map'
 Factory = Factory or require 'factory'
+require 'grid'
 
 function init()
     gengine.application.setName("mgj")
@@ -14,6 +15,7 @@ function start()
     Map:init()
     ship = Factory:createSpaceShip(Map.cameraEntity.camera)
     ship:insert()
+    Grid:init()
 end
 
 function update(dt)

@@ -15,14 +15,12 @@ function Map:init()
     for i=0, 2 do
         gengine.graphics.texture.create("data/plateforme" .. i .. ".png")
     end
-    gengine.graphics.texture.create("data/plateforme.png")
-    gengine.graphics.texture.create("data/plateforme2.png")
     gengine.graphics.texture.create("data/big_stars.png")
     gengine.graphics.texture.create("data/small_stars.png")
     gengine.graphics.texture.create("data/black.png")
     gengine.graphics.texture.create("data/space.png")
 
-    self.cameraEntity = Factory:createCamera()
+    self.cameraEntity = Factory:createCamera(0)
 
     self.cameraEntity:insert()
 
