@@ -1,3 +1,4 @@
+require 'map'
 require "factory"
 
 function init()
@@ -12,9 +13,11 @@ function start()
     Factory:init()
     local e = Factory:createSpaceShip()
     e:insert()
+    Map:init()
 end
 
 function update(dt)
+
     if gengine.input.keyboard:isJustDown(41) then
         gengine.application.quit()
     end
