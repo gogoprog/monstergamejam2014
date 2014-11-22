@@ -2,9 +2,9 @@ MapDefinitions = {
     {
         zones = {
             "plateforme",
+            "black",
             "plateforme",
-            "plateforme",
-            "plateforme",
+            "black",
             "plateforme"
         }
     }

@@ -44,7 +44,7 @@ function Factory:createZone(texture)
     return e
 end
 
-function Factory:createStars(texture)
+function Factory:createStars(texture, layer)
     local e = gengine.entity.create()
 
     e:addComponent(
@@ -52,7 +52,7 @@ function Factory:createStars(texture)
         {
             texture = gengine.graphics.texture.get(texture), 
             extent = vector2(512, 4096),
-            layer = -2
+            layer = layer
         },
         "sprite"
         )

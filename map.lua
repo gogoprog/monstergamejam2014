@@ -12,13 +12,20 @@ Map = {
 function Map:init()
     gengine.graphics.texture.create("data/plateforme.png")
     gengine.graphics.texture.create("data/big_stars.png")
+    gengine.graphics.texture.create("data/small_stars.png")
+    gengine.graphics.texture.create("data/black.png")
+    gengine.graphics.texture.create("data/space.png")
 
     self.cameraEntity = Factory:createCamera()
 
     self.cameraEntity:insert()
 
     local stars = {}
-    stars[1] = Factory:createStars("big_stars")
+    stars[3] = Factory:createStars("big_stars", -1)
+    stars[3]:insert()
+    stars[2] = Factory:createStars("small_stars", -2)
+    stars[2]:insert()
+    stars[1] = Factory:createStars("space", -3)
     stars[1]:insert()
     self.stars = stars
 
@@ -39,7 +46,7 @@ function Map:update(dt)
 
     for k, zone in ipairs(self.zones) do
         if zone.position.y - self.cameraEntity.position.y < -1024 then
-            zone.position.y = zone.position.y + 2 * 1024
+            zone.position.y = zone.position.y + 2 * 4096
             self.zoneIndex = self.zoneIndex + 1
             zone.sprite.texture = gengine.graphics.texture.get(self.definition.zones[((self.zoneIndex -1 ) % self.zoneCount) + 1])
         end
@@ -49,7 +56,7 @@ function Map:update(dt)
 
     for k, stars in ipairs(self.stars) do
         stars.position = self.cameraEntity.position
-        stars.sprite.uvOffset = vector2(1, - self.position * 0.000001 * self.speed * k)
+        stars.sprite.uvOffset = vector2(1, - self.position * 0.0000001 * self.speed * k)
     end
 end
 
