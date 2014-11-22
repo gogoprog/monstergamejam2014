@@ -35,7 +35,7 @@ function Factory:createZone(texture)
         ComponentSprite(),
         {
             texture = gengine.graphics.texture.get(texture), 
-            extent = vector2(1024, 1024),
+            extent = vector2(512, 1024),
             layer = -1
         },
         "sprite"
@@ -44,4 +44,33 @@ function Factory:createZone(texture)
     return e
 end
 
-return Factory
+function Factory:createStars(texture)
+    local e = gengine.entity.create()
+
+    e:addComponent(
+        ComponentSprite(),
+        {
+            texture = gengine.graphics.texture.get(texture), 
+            extent = vector2(512, 4096),
+            layer = -2
+        },
+        "sprite"
+        )
+
+    return e
+end
+
+
+function Factory:createCamera()
+    local e = gengine.entity.create()
+
+    e:addComponent(
+        ComponentCamera(),
+        {
+            extent = vector2(1024, 600)
+        },
+        "camera"
+        )
+
+    return e
+end

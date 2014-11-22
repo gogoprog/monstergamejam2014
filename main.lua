@@ -6,19 +6,19 @@ function init()
     gengine.application.setExtent(1024, 600)
 end
 
-local cameraEntity
+local ship
 
 function start()
     gengine.graphics.setClearColor(0,0.1,0.1,1)
     Map:init()
     Factory:init()
-    local e = Factory:createSpaceShip(Map.cameraEntity.camera)
-    e:insert()
+    ship = Factory:createSpaceShip(Map.cameraEntity.camera)
+    ship:insert()
 end
 
 function update(dt)
-
     Map:update(dt)
+    ship.position.y = Map.position - 200
 
     if gengine.input.keyboard:isJustDown(41) then
         gengine.application.quit()
