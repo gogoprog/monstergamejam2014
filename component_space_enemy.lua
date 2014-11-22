@@ -1,4 +1,5 @@
 Factory = Factory or {}
+Map = Map or {}
 
 ComponentSpaceEnemy = {}
 
@@ -29,6 +30,11 @@ function ComponentSpaceEnemy:update(dt)
         local e = Factory:createBullet(-200)
         e:insert()
         e.position = vector2(self.entity.position.x, self.entity.position.y)
+    end
+
+    if self.entity.position.y - Map.cameraEntity.position.y < -512 then
+        self.entity:remove()
+        gengine.entity.destroy(self.entity)
     end
 end
 
