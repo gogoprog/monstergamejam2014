@@ -13,6 +13,9 @@ Map = {
 }
 
 function Map:init()
+    for i=0, 2 do
+        gengine.graphics.texture.create("data/plateforme" .. i .. ".png")
+    end
     gengine.graphics.texture.create("data/plateforme.png")
     gengine.graphics.texture.create("data/plateforme2.png")
     gengine.graphics.texture.create("data/big_stars.png")

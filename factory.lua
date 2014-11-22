@@ -1,10 +1,13 @@
 ComponentOuterPlayer = ComponentOuterPlayer or require 'component_outer_player'
 ComponentSpaceEnemy = ComponentSpaceEnemy or require 'component_space_enemy'
+ComponentBullet = ComponentBullet or require 'component_bullet'
 
 Factory = Factory or {}
 
 function Factory:init()
     gengine.graphics.texture.create("data/tracteur_128.png")
+    gengine.graphics.texture.create("data/monster1_fire.png")
+
     local texture = gengine.graphics.texture.create("data/monster1.png")
 
     local atlas = gengine.graphics.atlas.create("monster", texture, 16, 1)
@@ -109,3 +112,27 @@ function Factory:createSpaceEnemy()
 
     return e
 end
+
+function Factory:createBullet(speed)
+    local e = gengine.entity.create()
+
+    e:addComponent(
+        ComponentSprite(),
+        {
+            texture = gengine.graphics.texture.get("monster1_fire"),
+            extent = vector2(16, 16),
+            layer = 0
+        }
+        )
+
+    e:addComponent(
+        ComponentBullet(),
+        {
+            speed = speed
+        }
+        )
+
+    return e
+end
+
+return Factory

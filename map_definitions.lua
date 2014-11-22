@@ -2,7 +2,7 @@ MapDefinitions = {
     {
         zones = {
             {
-                texture = "plateforme",
+                texture = "plateforme1",
                 enemies =
                 {
                     1,
@@ -17,6 +17,9 @@ MapDefinitions = {
                     1,
                     2
                 }
+            },
+            {
+                texture = "plateforme0"
             },
             {
                 texture = "plateforme2"
