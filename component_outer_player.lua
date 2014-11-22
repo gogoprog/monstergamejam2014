@@ -1,3 +1,4 @@
+Factory = Factory or {}
 ComponentOuterPlayer = {}
 
 function ComponentOuterPlayer:init()
@@ -8,6 +9,7 @@ function ComponentOuterPlayer:init()
     self.minSpeed = 1
     self.leftBoundary = 32
     self.rightBoundary = 512 - 32
+    self.sprayerEntity = Factory:createSprayer()
 end
 
 function ComponentOuterPlayer:insert()
@@ -44,10 +46,14 @@ function ComponentOuterPlayer:update(dt)
     end
 
     if gengine.input.mouse:isJustDown(1) then
+        self.sprayerEntity.sprayer:changeState("startSpraying")
     end
 
     if gengine.input.mouse:isJustDown(3) then
     end
+
+    self.sprayerEntity.position.x = e.position.x
+    self.sprayerEntity.position.y = e.position.y
 end
 
 function ComponentOuterPlayer:remove()
