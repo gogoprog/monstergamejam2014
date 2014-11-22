@@ -8,7 +8,7 @@ Map = {
     zoneIndex = 1,
     spaceSpeedFactor = 0.0000001,
     definition = nil,
-    center = 0,
+    center = 256,
     zoneSize = 600
 }
 
@@ -33,14 +33,20 @@ function Map:init()
     stars[1]:insert()
     self.stars = stars
 
+    for k, star in ipairs(stars) do
+        star.position.x = self.center
+    end
+
     self.definition = MapDefinitions[1]
     self.zoneCount = #self.definition.zones
 
     self.zones[1] = Factory:createZone("black")
     self.zones[1]:insert()
+    self.zones[1].position.x = self.center
     self.zones[1].position.y = 0
     self.zones[2] = Factory:createZone(self.definition.zones[1].texture)
     self.zones[2]:insert()
+    self.zones[2].position.x = self.center
     self.zones[2].position.y = 1 * self.zoneSize
     self.zoneIndex = 1
     self:onNewZone(self.definition.zones[self.zoneIndex])
@@ -52,6 +58,7 @@ function Map:update(dt)
     for k, zone in ipairs(self.zones) do
         if zone.position.y - self.cameraEntity.position.y < -self.zoneSize then
             zone.position.y = zone.position.y + 2 * self.zoneSize
+            zone.position.x = self.center
             self.zoneIndex = self.zoneIndex + 1
             local def = self.definition.zones[((self.zoneIndex -1 ) % self.zoneCount) + 1]
             zone.sprite.texture = gengine.graphics.texture.get(def.texture)
@@ -62,7 +69,7 @@ function Map:update(dt)
     self.cameraEntity.position.y = self.position
 
     for k, stars in ipairs(self.stars) do
-        stars.position = self.cameraEntity.position
+        stars.position.y = self.cameraEntity.position.y
         stars.sprite.uvOffset = vector2(1, - self.position * self.spaceSpeedFactor * self.speed * k)
     end
 end

@@ -6,8 +6,8 @@ function ComponentOuterPlayer:init()
     self.lastMousePosition = 0
     self.maxSpeed = 10
     self.minSpeed = 1
-    self.leftBoundary = -511
-    self.rightBoundary = 511
+    self.leftBoundary = 32
+    self.rightBoundary = 512 - 32
 end
 
 function ComponentOuterPlayer:insert()
