@@ -1,5 +1,5 @@
-require 'map'
-require "factory"
+Map = Map or require 'map'
+Factory = Factory or require 'factory'
 
 function init()
     gengine.application.setName("mgj")
@@ -10,10 +10,10 @@ local cameraEntity
 
 function start()
     gengine.graphics.setClearColor(0,0.1,0.1,1)
-    Factory:init()
-    local e = Factory:createSpaceShip()
-    e:insert()
     Map:init()
+    Factory:init()
+    local e = Factory:createSpaceShip(Map.cameraEntity.camera)
+    e:insert()
 end
 
 function update(dt)

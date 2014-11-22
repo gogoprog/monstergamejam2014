@@ -1,4 +1,4 @@
-require 'factory'
+Factory = Factory or require 'factory'
 
 Map = {
     zones = {}
@@ -31,3 +31,5 @@ end
 function Map:update(dt)
 
 end
+
+return Map
