@@ -5,8 +5,18 @@ Factory = Factory or {}
 
 function Factory:init()
     gengine.graphics.texture.create("data/tracteur_128.png")
-    gengine.graphics.texture.create("data/monster1.png")
+    local texture = gengine.graphics.texture.create("data/monster1.png")
 
+    local atlas = gengine.graphics.atlas.create("monster", texture, 16, 1)
+    self.monsterAnimation = gengine.graphics.animation.create(
+        "monsterAnimation",
+        {
+            atlas = atlas,
+            frames = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 },
+            framerate = 16,
+            loop = true
+        }
+        )
 end
 
 function Factory:createSpaceShip(camera)
@@ -38,7 +48,7 @@ function Factory:createZone(texture)
         ComponentSprite(),
         {
             texture = gengine.graphics.texture.get(texture), 
-            extent = vector2(512, 1024),
+            extent = vector2(512, 512),
             layer = -1
         },
         "sprite"
@@ -81,10 +91,10 @@ function Factory:createSpaceEnemy()
     local e = gengine.entity.create()
 
     e:addComponent(
-        ComponentSprite(),
+        ComponentAnimatedSprite(),
         {
-            texture = gengine.graphics.texture.get("monster1"),
-            extent = vector2(64, 64),
+            animation = self.monsterAnimation,
+            extent = vector2(32, 64),
             layer = 1
         },
         "sprite"

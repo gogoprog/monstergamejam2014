@@ -18,7 +18,7 @@ end
 
 function update(dt)
     Map:update(dt)
-    ship.position.y = Map.position - 200
+    ship.position.y = Map.position - 240
 
     if gengine.input.keyboard:isJustDown(41) then
         gengine.application.quit()

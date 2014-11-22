@@ -19,7 +19,15 @@ MapDefinitions = {
                 }
             },
             {
-                texture = "plateforme"
+                texture = "plateforme2"
+            },
+            {
+                texture = "black",
+                enemies =
+                {
+                    1,
+                    2
+                }
             }
         }
     }
