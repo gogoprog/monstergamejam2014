@@ -3,7 +3,7 @@ require "component_outer_player"
 Factory = Factory or {}
 
 function Factory:init()
-	gengine.graphics.texture.create("data/tracteur_128.png")
+    gengine.graphics.texture.create("data/tracteur_128.png")
 end
 
 function Factory:createSpaceShip()
@@ -19,11 +19,28 @@ function Factory:createSpaceShip()
         )
 
     e:addComponent(
-    	ComponentOuterPlayer(),
-    	{
+        ComponentOuterPlayer(),
+        {
 
-    	}
-    	)
+        }
+        )
 
     return e
 end
+
+function Factory:createZone(texture)
+    local e = gengine.entity.create()
+
+    e:addComponent(
+        ComponentSprite(),
+        {
+            texture = gengine.graphics.texture.get(texture), 
+            extent = vector2(1024, 1024),
+            layer = -1
+        },
+        "sprite"
+        )
+
+    return e
+end
+

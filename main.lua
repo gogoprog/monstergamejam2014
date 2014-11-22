@@ -18,6 +18,8 @@ end
 
 function update(dt)
 
+    Map:update(dt)
+
     if gengine.input.keyboard:isJustDown(41) then
         gengine.application.quit()
     end
