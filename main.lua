@@ -10,8 +10,8 @@ local ship
 
 function start()
     gengine.graphics.setClearColor(0,0.1,0.1,1)
-    Map:init()
     Factory:init()
+    Map:init()
     ship = Factory:createSpaceShip(Map.cameraEntity.camera)
     ship:insert()
 end

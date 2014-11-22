@@ -1,11 +1,26 @@
 MapDefinitions = {
     {
         zones = {
-            "plateforme",
-            "black",
-            "plateforme",
-            "black",
-            "plateforme"
+            {
+                texture = "plateforme",
+                enemies =
+                {
+                    1,
+                    2,
+                    4
+                }
+            },
+            {
+                texture = "black",
+                enemies =
+                {
+                    1,
+                    2
+                }
+            },
+            {
+                texture = "plateforme"
+            }
         }
     }
 }

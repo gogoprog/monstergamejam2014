@@ -3,10 +3,12 @@ require 'map_definitions'
 
 Map = {
     zones = {},
-    speed = 100,
+    speed = 200,
     position = 0,
     zoneIndex = 1,
-    definition = nil
+    spaceSpeedFactor = 0.0000001,
+    definition = nil,
+    center = 0
 }
 
 function Map:init()
@@ -21,24 +23,25 @@ function Map:init()
     self.cameraEntity:insert()
 
     local stars = {}
-    stars[3] = Factory:createStars("big_stars", -1)
+    stars[3] = Factory:createStars("big_stars", -2)
     stars[3]:insert()
-    stars[2] = Factory:createStars("small_stars", -2)
+    stars[2] = Factory:createStars("small_stars", -3)
     stars[2]:insert()
-    stars[1] = Factory:createStars("space", -3)
+    stars[1] = Factory:createStars("space", -4)
     stars[1]:insert()
     self.stars = stars
 
     self.definition = MapDefinitions[1]
     self.zoneCount = #self.definition.zones
 
-    for i=1,3 do
-        self.zones[i] = Factory:createZone(self.definition.zones[i])
-        self.zones[i]:insert()
-        self.zones[i].position.y = (i-2) * 1024
-    end
-
-    zoneIndex = 3
+    self.zones[1] = Factory:createZone("black")
+    self.zones[1]:insert()
+    self.zones[1].position.y = 0
+    self.zones[2] = Factory:createZone(self.definition.zones[1].texture)
+    self.zones[2]:insert()
+    self.zones[2].position.y = 1 * 1024
+    self.zoneIndex = 1
+    self:onNewZone(self.definition.zones[self.zoneIndex])
 end
 
 function Map:update(dt)
@@ -46,9 +49,11 @@ function Map:update(dt)
 
     for k, zone in ipairs(self.zones) do
         if zone.position.y - self.cameraEntity.position.y < -1024 then
-            zone.position.y = zone.position.y + 2 * 4096
+            zone.position.y = zone.position.y + 2 * 1024
             self.zoneIndex = self.zoneIndex + 1
-            zone.sprite.texture = gengine.graphics.texture.get(self.definition.zones[((self.zoneIndex -1 ) % self.zoneCount) + 1])
+            local def = self.definition.zones[((self.zoneIndex -1 ) % self.zoneCount) + 1]
+            zone.sprite.texture = gengine.graphics.texture.get(def.texture)
+            self:onNewZone(def)
         end
     end
 
@@ -56,8 +61,19 @@ function Map:update(dt)
 
     for k, stars in ipairs(self.stars) do
         stars.position = self.cameraEntity.position
-        stars.sprite.uvOffset = vector2(1, - self.position * 0.0000001 * self.speed * k)
+        stars.sprite.uvOffset = vector2(1, - self.position * self.spaceSpeedFactor * self.speed * k)
     end
 end
 
-return Map;
+function Map:onNewZone(definition)
+    if definition.enemies then
+        for k, v in ipairs(definition.enemies) do
+            local e = Factory:createSpaceEnemy()
+            e.position.x = math.random(self.center - 200, self.center + 200)
+            e.position.y = self.cameraEntity.position.y + 1 * 1024 + math.random(-200, 200)
+            e:insert()
+        end
+    end
+end
+
+return Map

@@ -1,9 +1,12 @@
 ComponentOuterPlayer = ComponentOuterPlayer or require 'component_outer_player'
+ComponentSpaceEnemy = ComponentSpaceEnemy or require 'component_space_enemy'
 
 Factory = Factory or {}
 
 function Factory:init()
     gengine.graphics.texture.create("data/tracteur_128.png")
+    gengine.graphics.texture.create("data/monster1.png")
+
 end
 
 function Factory:createSpaceShip(camera)
@@ -13,7 +16,7 @@ function Factory:createSpaceShip(camera)
         ComponentSprite(),
         {
             texture = gengine.graphics.texture.get("tracteur_128"),
-            extent = vector2(128, 128),
+            extent = vector2(64, 64),
             layer = 0
         }
         )
@@ -60,7 +63,6 @@ function Factory:createStars(texture, layer)
     return e
 end
 
-
 function Factory:createCamera()
     local e = gengine.entity.create()
 
@@ -70,6 +72,29 @@ function Factory:createCamera()
             extent = vector2(1024, 600)
         },
         "camera"
+        )
+
+    return e
+end
+
+function Factory:createSpaceEnemy()
+    local e = gengine.entity.create()
+
+    e:addComponent(
+        ComponentSprite(),
+        {
+            texture = gengine.graphics.texture.get("monster1"),
+            extent = vector2(64, 64),
+            layer = 1
+        },
+        "sprite"
+        )
+
+    e:addComponent(
+        ComponentSpaceEnemy(),
+        {
+        },
+        "enemy"
         )
 
     return e
