@@ -10,6 +10,8 @@ Factory = Factory or {}
 
 function Factory:init()
     gengine.graphics.texture.create("data/spaceship_empty.png")
+    gengine.graphics.texture.create("data/spaceship_left.png")
+    gengine.graphics.texture.create("data/spaceship_right.png")
     gengine.graphics.texture.create("data/monster1_fire.png")
     gengine.graphics.texture.create("data/inner_background.png")
     gengine.graphics.texture.create("data/inner_tile.png")
@@ -80,7 +82,8 @@ function Factory:createSpaceShip(camera)
             texture = gengine.graphics.texture.get("spaceship_empty"),
             extent = vector2(64, 64),
             layer = 0
-        }
+        },
+        "sprite"
         )
 
     e:addComponent(

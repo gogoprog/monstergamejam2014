@@ -42,6 +42,16 @@ function ComponentOuterPlayer:update(dt)
             end
         end
 
+        print(self.x_speed)
+
+        if self.x_speed > 0.1 then
+            self.entity.sprite.texture = gengine.graphics.texture.get("spaceship_left")
+        elseif self.x_speed < -0.1 then
+            self.entity.sprite.texture = gengine.graphics.texture.get("spaceship_right")
+        else
+            self.entity.sprite.texture = gengine.graphics.texture.get("spaceship_empty")
+        end
+
         e.position.x = e.position.x - self.x_speed
         self.y = self.y - self.y_speed
         e.position.y = self.y + Map.position

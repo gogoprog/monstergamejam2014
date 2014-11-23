@@ -49,9 +49,11 @@ function ComponentSpaceEnemy:remove()
 end
 
 function ComponentSpaceEnemy:takeDamage(amount)
-    self.life = self.life - amount
-    if self.life <= 0 then
-        self:changeState("dying")
+    if self.state == "alive" then
+        self.life = self.life - amount
+        if self.life <= 0 then
+            self:changeState("dying")
+        end
     end
 end
 
