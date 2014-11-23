@@ -4,7 +4,6 @@ Map = Map or {}
 ComponentResource = ComponentResource or {}
 
 function ComponentResource:init()
-    self.hitbox = vector2(x,y)
     self.time = 0
     self.backSpeed = 100
 end

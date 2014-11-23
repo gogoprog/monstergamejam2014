@@ -329,8 +329,10 @@ function Factory:createBullet(speed)
     e:addComponent(
         ComponentBullet(),
         {
-            speed = speed
-        }
+            speed = speed,
+            hitbox = vector2(16, 16)
+        },
+        "bullet"
         )
 
     return e

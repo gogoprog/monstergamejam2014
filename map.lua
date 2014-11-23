@@ -57,7 +57,6 @@ function Map:start()
     self:onNewZone(self.definition.zones[self.zoneIndex])
 
     self.ship = Factory:createSpaceShip(self.cameraEntity.camera)
-    self.ship.outer_player.hitbox = vector2(64, 64)
     self.ship:insert()
 end
 

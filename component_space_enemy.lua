@@ -12,7 +12,6 @@ function ComponentSpaceEnemy:init()
     self.shootTime = math.random() * 2  + 1
     self.life = 100
     self.collision_damage = 30
-    self.hitbox = vector2(x,y)
     self.dropRate = 0
 end
 
