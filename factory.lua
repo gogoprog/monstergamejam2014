@@ -63,7 +63,7 @@ function Factory:createSprayer()
         "startSpraying",
         {
             atlas = startFiringAtlas,
-            frames = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 },
+            frames = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 },
             framerate = 32,
             loop = false
         }
@@ -73,8 +73,8 @@ function Factory:createSprayer()
         "stillSpraying",
         {
             atlas = stillFiringAtlas,
-            frames = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 },
-            framerate = 5,
+            frames = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 },
+            framerate = 32,
             loop = true
         }
         )
@@ -83,8 +83,8 @@ function Factory:createSprayer()
         "stopSpraying",
         {
             atlas = stopFiringAtlas,
-            frames = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 },
-            framerate = 5,
+            frames = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 },
+            framerate = 32,
             loop = false
         }
         )

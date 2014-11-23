@@ -46,14 +46,22 @@ function ComponentOuterPlayer:update(dt)
     end
 
     if gengine.input.mouse:isJustDown(1) then
-        self.sprayerEntity.sprayer:changeState("startSpraying")
+        if self.sprayerEntity.sprayer.state == "idle" then
+            self.sprayerEntity.sprayer:changeState("startSpraying")
+        end
+    end
+    
+    if gengine.input.mouse:isJustUp(1) then
+        if self.sprayerEntity.sprayer.state == "startSpraying" then
+            self.sprayerEntity.sprayer:changeState("stopSpraying")
+        end
     end
 
     if gengine.input.mouse:isJustDown(3) then
     end
 
     self.sprayerEntity.position.x = e.position.x
-    self.sprayerEntity.position.y = e.position.y
+    self.sprayerEntity.position.y = 160 + e.position.y
 end
 
 function ComponentOuterPlayer:remove()
