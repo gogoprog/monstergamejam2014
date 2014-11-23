@@ -7,7 +7,7 @@ require 'component_bonus'
 require 'component_shaker'
 require 'component_inner_enemy'
 require 'component_rumbler'
-
+require 'component_resource'
 
 Factory = Factory or {}
 
@@ -158,7 +158,8 @@ function Factory:createSpaceShip(camera)
         ComponentOuterPlayer(),
         {
             camera = camera,
-            straffingSound = gengine.audio.sound.get("moteur.break")
+            straffingSound = gengine.audio.sound.get("moteur.break"),
+            hitbox = vector2(64, 64)
         },
         "outer_player"
         )
@@ -297,7 +298,8 @@ function Factory:createSpaceEnemy()
     e:addComponent(
         ComponentSpaceEnemy(),
         {
-            fireSound = gengine.audio.sound.get("limace.fire")
+            fireSound = gengine.audio.sound.get("limace.fire"),
+            hitbox = vector2(32, 64)
         },
         "enemy"
         )
@@ -458,6 +460,32 @@ function Factory:createGauge(id)
     return e
 end
 
+function Factory:createResource(position)
+    local e = gengine.entity.create()
+
+    e:addComponent(
+        ComponentResource(),
+        {
+            hitbox = vector2(32, 32)
+        },
+        "resource"
+        )
+
+    e.position.x = position.x
+    e.position.y = position.y
+
+    e:addComponent(
+        ComponentSprite(),
+        {
+            texture = gengine.graphics.texture.get("inner_bonus1"),
+            extent = vector2(32, 32),
+            layer = 1
+        },
+        "sprite"
+        )
+
+    return e
+end
 
 function Factory:createLogo()
     local e = gengine.entity.create()

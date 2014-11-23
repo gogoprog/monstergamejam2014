@@ -20,6 +20,7 @@ function ComponentOuterPlayer:init()
     self.sprayerEntity = Factory:createSprayer()
     self.life = 100
     self.maxLife = 100
+    self.hitbox = vector2(x,y)
 end
 
 function ComponentOuterPlayer:insert()

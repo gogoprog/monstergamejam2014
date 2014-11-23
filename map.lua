@@ -57,6 +57,7 @@ function Map:start()
     self:onNewZone(self.definition.zones[self.zoneIndex])
 
     self.ship = Factory:createSpaceShip(self.cameraEntity.camera)
+    self.ship.outer_player.hitbox = vector2(64, 64)
     self.ship:insert()
 end
 
@@ -88,6 +89,7 @@ function Map:onNewZone(definition)
             local e = Factory:createSpaceEnemy()
             e.position.x = math.random(self.center - 200, self.center + 200)
             e.position.y = self.cameraEntity.position.y + 1 * self.zoneSize + math.random(-200, 200)
+            e.enemy.dropRate = v
             e:insert()
             self.enemies[#self.enemies+1] = e
         end

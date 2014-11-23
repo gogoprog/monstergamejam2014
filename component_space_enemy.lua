@@ -12,6 +12,8 @@ function ComponentSpaceEnemy:init()
     self.shootTime = math.random() * 2  + 1
     self.life = 100
     self.collision_damage = 30
+    self.hitbox = vector2(x,y)
+    self.dropRate = 0
 end
 
 function ComponentSpaceEnemy:insert()
@@ -38,10 +40,10 @@ function ComponentSpaceEnemy:update(dt)
             gengine.audio.playSound(self.fireSound)
         end
 
-        if not(self.entity.position.x - 16 > Map.ship.position.x + 32
-            or self.entity.position.x + 16 < Map.ship.position.x - 32
-            or self.entity.position.y - 32 > Map.ship.position.y + 32
-            or self.entity.position.y + 32 < Map.ship.position.y - 32) then
+        if not(self.entity.position.x - (self.hitbox.x / 2) > Map.ship.position.x + (Map.ship.outer_player.hitbox.x / 2)
+            or self.entity.position.x + (self.hitbox.x / 2) < Map.ship.position.x - (Map.ship.outer_player.hitbox.x / 2)
+            or self.entity.position.y - (self.hitbox.y / 2) > Map.ship.position.y + (Map.ship.outer_player.hitbox.y / 2)
+            or self.entity.position.y + (self.hitbox.y / 2) < Map.ship.position.y - (Map.ship.outer_player.hitbox.y / 2)) then
 
             self:takeDamage(self.life + 1)
             Map.ship.outer_player:takeDamage(self.collision_damage)
@@ -92,6 +94,11 @@ function ComponentSpaceEnemy.onStateUpdate:dying(dt)
     self.time = self.time + dt
     if self.time > 1 then
         self:killIt()
+        local drop = math.random()
+        if drop > self.dropRate then
+            local e = Factory:createResource(self.entity.position)
+            e:insert()
+        end
     end
 end
 

@@ -5,17 +5,17 @@ MapDefinitions = {
                 texture = "plateforme1",
                 enemies =
                 {
-                    1,
-                    2,
-                    4
+                    0.30,
+                    0.30,
+                    0.30
                 }
             },
             {
                 texture = "black",
                 enemies =
                 {
-                    1,
-                    2
+                    0.30,
+                    0.30
                 }
             },
             {
@@ -28,8 +28,8 @@ MapDefinitions = {
                 texture = "black",
                 enemies =
                 {
-                    1,
-                    2
+                    0.50,
+                    0.30
                 }
             }
         }
