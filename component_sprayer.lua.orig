@@ -8,7 +8,10 @@ function ComponentSprayer:init()
     self.damage = 350
     self.consumption = 10
     self.ammunition = 100
+<<<<<<< Updated upstream
     self.maxAmmo = 100
+=======
+>>>>>>> Stashed changes
     self.time = 0
 end
 

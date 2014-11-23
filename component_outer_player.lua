@@ -31,6 +31,10 @@ function ComponentOuterPlayer:update(dt)
     local speedFactor = -8
     self.time = self.time + dt
 
+    if self.time > 1.4 then
+        gengine.audio.playSound(gengine.audio.sound.get("moteur.drive"))
+    end
+
     local x,y = gengine.input.mouse:getPosition()
     local wx, wy = self.camera:getWorldPosition(x,y)
 
@@ -58,9 +62,10 @@ function ComponentOuterPlayer:update(dt)
                 self.entity.spaceShipAnimation:pushAnimation(self.entity.spaceShip)
             end
 
-            e.position.x = e.position.x - self.x_speed
             self.y = self.y - self.y_speed
-            e.position.y = self.y + Map.position
+            e.position.y = self.y + Map.position 
+            e.position.x = e.position.x - self.x_speed
+
 
             if e.position.x > self.rightBoundary then
                 e.position.x = self.rightBoundary

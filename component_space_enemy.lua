@@ -83,6 +83,7 @@ function ComponentSpaceEnemy.onStateEnter:dying(dt)
     self.entity.sprite:removeAnimations()
     self.entity.sprite.extent = vector2(64, 64)
     self.entity.sprite:pushAnimation(Factory.dyingMonsterAnimation)
+    gengine.audio.playSound(gengine.audio.sound.get("limace.dead"))
     self.time = 0
 end
 
