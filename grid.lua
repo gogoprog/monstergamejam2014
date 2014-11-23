@@ -1,3 +1,5 @@
+require 'grid_definitions'
+
 Grid = Grid or {
     center = -256,
     blocks = {},
@@ -22,7 +24,7 @@ function Grid:init(w, h)
     self.farmer.position.x, self.farmer.position.y = self:getPosition(0, 0)
     self.farmer:insert()
 
-    self:putRandomTiles(50)
+    self:load(GridDefinitions[1])
 end
 
 function Grid:putRandomTiles(count)
@@ -34,6 +36,19 @@ function Grid:putRandomTiles(count)
             e.position.x, e.position.y = self:getPosition(x, y)
             e:insert()
             count = count - 1
+        end
+    end
+end
+
+function Grid:load(definition)
+    local blocks = self.blocks
+    for k, v in ipairs(definition) do
+        local n = k - 1
+        if v > 0 then
+            blocks[k] = true
+            local e = Factory:createBlock()
+            e.position.x, e.position.y = self:getPosition(n % self.width, math.floor(n / self.height))
+            e:insert()
         end
     end
 end
