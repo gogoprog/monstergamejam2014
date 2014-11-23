@@ -18,11 +18,11 @@ function ComponentBullet:update(dt)
         gengine.entity.destroy(self.entity)
     end
 
-    if (self.entity.position.x + 8 >= Map.ship.position.x - 32 and self.entity.position.x + 8 <= Map.ship.position.x + 32
-        and self.entity.position.x - 8 >= Map.ship.position.x - 32 and self.entity.position.x - 8 <= Map.ship.position.x + 32)
-        and (self.entity.position.y + 8 <= Map.ship.position.y + 32 and self.entity.position.y + 8 >= Map.ship.position.y - 32
-        and self.entity.position.y - 8 <= Map.ship.position.y + 32 and self.entity.position.y - 8 >= Map.ship.position.y - 32) then
-        
+    if not(self.entity.position.x - 8 > Map.ship.position.x + 32
+        or self.entity.position.x + 8 < Map.ship.position.x - 32
+        or self.entity.position.y - 8 > Map.ship.position.y + 32
+        or self.entity.position.y + 8 < Map.ship.position.y - 32) then
+
         self.entity:remove()
         gengine.entity.destroy(self.entity)
         Map.ship.outer_player:takeDamage(self.damage)

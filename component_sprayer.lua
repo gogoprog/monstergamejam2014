@@ -29,10 +29,11 @@ end
 
 function ComponentSprayer.onStateUpdate:spraying(dt)
     for k, v in ipairs(Map.enemies) do
-        if (v.position.x + 16 > self.entity.position.x - 8 and v.position.x - 16 < self.entity.position.x + 8)
-            and (v.position.x - 16 > self.entity.position.x - 16 and self.entity.position.x - 16 < self.entity.position.x +16)
-            and (v.position.y - 32 < self.entity.position.y + 128 and v.position.y - 32 > self.entity.position.y - 128) then
-            
+        if not(v.position.x - 16 > self.entity.position.x + 8
+            or v.position.x + 16 < self.entity.position.x - 8
+            or v.position.y - 32 > self.entity.position.y + 128
+            or v.position.y + 32 < self.entity.position.y - 128) then
+
             v.enemy:takeDamage(self.damage * dt)
         end
     end
