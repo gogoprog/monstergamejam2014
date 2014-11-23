@@ -2,6 +2,7 @@ ComponentOuterPlayer = ComponentOuterPlayer or require 'component_outer_player'
 ComponentSpaceEnemy = ComponentSpaceEnemy or require 'component_space_enemy'
 ComponentBullet = ComponentBullet or require 'component_bullet'
 ComponentSprayer = ComponentSprayer or require 'component_sprayer'
+require 'component_inner_player'
 
 Factory = Factory or {}
 
@@ -9,12 +10,37 @@ function Factory:init()
     gengine.graphics.texture.create("data/tracteur_128.png")
     gengine.graphics.texture.create("data/monster1_fire.png")
     gengine.graphics.texture.create("data/inner_background.png")
+    gengine.graphics.texture.create("data/inner_tile.png")
 
     local texture = gengine.graphics.texture.create("data/monster1.png")
 
     local atlas = gengine.graphics.atlas.create("monster", texture, 16, 1)
     self.monsterAnimation = gengine.graphics.animation.create(
         "monsterAnimation",
+        {
+            atlas = atlas,
+            frames = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 },
+            framerate = 16,
+            loop = true
+        }
+        )
+
+    texture = gengine.graphics.texture.create("data/farmer_down.png")
+    atlas = gengine.graphics.atlas.create("farmer_down", texture, 16, 1)
+    self.farmerDownAnimation = gengine.graphics.animation.create(
+        "farmerDown",
+        {
+            atlas = atlas,
+            frames = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 },
+            framerate = 16,
+            loop = true
+        }
+        )
+
+    texture = gengine.graphics.texture.create("data/farmer_up.png")
+    atlas = gengine.graphics.atlas.create("farmer_up", texture, 16, 1)
+    self.farmerUpAnimation = gengine.graphics.animation.create(
+        "farmerUp",
         {
             atlas = atlas,
             frames = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 },
@@ -207,9 +233,18 @@ function Factory:createBlock()
     e:addComponent(
         ComponentSprite(),
         {
-            texture = gengine.graphics.texture.get("black"),
+            texture = gengine.graphics.texture.get("inner_tile"),
             extent = vector2(32, 32),
-            layer = 0
+            layer = 1,
+            world = 1
+        }
+        )
+
+    e:addComponent(
+        ComponentPhysic(),
+        {
+            extent = vector2(32, 32),
+            type = "static"
         }
         )
 
@@ -239,8 +274,43 @@ function Factory:createInvisibleBlock(w, h)
         ComponentPhysic(),
         {
             extent = vector2(w, h),
-            type = static
+            type = "static"
         }
+        )
+
+    return e
+end
+
+
+function Factory:createInnerPlayer()
+    local e = gengine.entity.create()
+
+    e:addComponent(
+        ComponentAnimatedSprite(),
+        {
+            animation = self.farmerDownAnimation,
+            extent = vector2(80, 64),
+            layer = 2,
+            world = 1
+        },
+        "animatedSprite"
+        )
+
+    e:addComponent(
+        ComponentInnerPlayer(),
+        {
+        }
+        )
+
+    e:addComponent(
+        ComponentPhysic(),
+        {
+            extent = vector2(32, 32),
+            type = "dynamic",
+            density = 1,
+            friction = 1.3
+        },
+        "physic"
         )
 
     return e

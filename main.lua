@@ -15,7 +15,7 @@ function start()
     Map:init()
     ship = Factory:createSpaceShip(Map.cameraEntity.camera)
     ship:insert()
-    Grid:init()
+    Grid:init(15, 15)
 end
 
 function update(dt)
