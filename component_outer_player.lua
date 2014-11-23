@@ -2,6 +2,8 @@ Factory = Factory or {}
 ComponentOuterPlayer = {}
 Map = Map or require 'Map'
 
+local mabs = math.abs
+
 function ComponentOuterPlayer:init()
     self.time = 0
     self.x_speed = 0
@@ -27,7 +29,7 @@ function ComponentOuterPlayer:update(dt)
     local x,y = gengine.input.mouse:getPosition()
     local wx, wy = self.camera:getWorldPosition(x,y)
 
-    if wx < 10000 and wy < 10000 then
+    if mabs(wx) ~= 1/0 and mabs(wy) ~= 1/0 then
         self.x_speed = (speedFactor * (wx - e.position.x)) * dt
         self.y_speed = (speedFactor * (wy - Map.position - self.y)) * dt
 
