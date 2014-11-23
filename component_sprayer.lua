@@ -51,7 +51,7 @@ function ComponentSprayer.onStateUpdate:spraying(dt)
 
     if self.time > 1.5 then
         self.time = 0
-        --gengine.audio.playSound(gengine.audio.sound.get("weapon.jet.continu"))
+        -- gengine.audio.playSound(gengine.audio.sound.get("weapon.jet.continu"))
     end
 end
 
