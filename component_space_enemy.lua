@@ -64,6 +64,7 @@ end
 
 function ComponentSpaceEnemy:takeDamage(amount)
     if self.state == "alive" then
+        self.entity.rumbler:rumble(0.4)
         self.life = self.life - amount
     end
 end

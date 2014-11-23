@@ -6,6 +6,8 @@ require 'component_inner_player'
 require 'component_bonus'
 require 'component_shaker'
 require 'component_inner_enemy'
+require 'component_rumbler'
+
 
 Factory = Factory or {}
 
@@ -274,6 +276,13 @@ function Factory:createSpaceEnemy()
             fireSound = gengine.audio.sound.get("limace.fire")
         },
         "enemy"
+        )
+
+    e:addComponent(
+        ComponentRumbler(),
+        {
+        },
+        "rumbler"
         )
 
     return e
