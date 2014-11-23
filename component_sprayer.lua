@@ -6,6 +6,8 @@ gengine.stateMachine(ComponentSprayer)
 function ComponentSprayer:init()
     self:changeState("idle")
     self.damage = 350
+    self.consumption = 10
+    self.ammunition = 100
 end
 
 function ComponentSprayer:insert()
@@ -34,6 +36,13 @@ function ComponentSprayer.onStateUpdate:spraying(dt)
             v.enemy:takeDamage(self.damage * dt)
         end
     end
+
+    self.ammunition = self.ammunition - (self.consumption * dt)
+    if self.ammunition <= 0 then
+        self:changeState("stopSpraying")
+        self.ammunition = 0
+    end
+    print(self.ammunition)
 end
 
 function ComponentSprayer.onStateEnter:stopSpraying(dt)

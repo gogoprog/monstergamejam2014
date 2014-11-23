@@ -20,8 +20,6 @@ end
 
 function update(dt)
     Map:update(dt)
-    --ship.position.y = Map.position - 240
-
     Grid:update(dt)
 
     if gengine.input.keyboard:isJustDown(41) then
