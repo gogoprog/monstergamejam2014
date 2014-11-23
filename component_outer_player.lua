@@ -102,6 +102,8 @@ function ComponentOuterPlayer:update(dt)
 
     self.sprayerEntity.position.x = e.position.x - 20
     self.sprayerEntity.position.y = 160 + e.position.y
+
+    Game:setGaugeValue(2, self.life / self.maxLife)
 end
 
 function ComponentOuterPlayer:takeDamage(amount)
