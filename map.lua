@@ -51,6 +51,9 @@ function Map:init()
     self.zones[2].position.y = 1 * self.zoneSize
     self.zoneIndex = 1
     self:onNewZone(self.definition.zones[self.zoneIndex])
+
+    self.ship = Factory:createSpaceShip(self.cameraEntity.camera)
+    self.ship:insert()
 end
 
 function Map:update(dt)

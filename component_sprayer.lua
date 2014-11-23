@@ -18,7 +18,7 @@ function ComponentSprayer:remove()
 end
 
 function ComponentSprayer:update(dt)
-	self:updateState(dt)
+    self:updateState(dt)
 end
 
 function ComponentSprayer.onStateEnter:spraying(dt)
@@ -51,11 +51,11 @@ function ComponentSprayer.onStateEnter:stopSpraying(dt)
 end
 
 function ComponentSprayer.onStateUpdate:stopSpraying(dt)
-	self.time = self.time + dt
-	if self.time > 0.4 then
-		self.entity:remove()
-		self:changeState("idle")
-	end
+    self.time = self.time + dt
+    if self.time > 0.4 then
+        self.entity:remove()
+        self:changeState("idle")
+    end
 end
 
 return ComponentSprayer

@@ -7,14 +7,10 @@ function init()
     gengine.application.setExtent(1024, 600)
 end
 
-local ship
-
 function start()
     gengine.graphics.setClearColor(0,0.1,0.1,1)
     Factory:init()
     Map:init()
-    ship = Factory:createSpaceShip(Map.cameraEntity.camera)
-    ship:insert()
     Grid:init(15, 15)
 end
 

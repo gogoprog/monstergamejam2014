@@ -16,6 +16,7 @@ function ComponentOuterPlayer:init()
     self.leftBoundary = 32
     self.rightBoundary = 512 - 32
     self.sprayerEntity = Factory:createSprayer()
+    self.life = 100
 end
 
 function ComponentOuterPlayer:insert()
@@ -78,6 +79,13 @@ function ComponentOuterPlayer:update(dt)
 
     self.sprayerEntity.position.x = e.position.x
     self.sprayerEntity.position.y = 160 + e.position.y
+end
+
+function ComponentOuterPlayer:takeDamage(amount)
+    self.life = self.life - amount
+    if( self.life <= 0 ) then
+        --GAME OVER
+    end
 end
 
 function ComponentOuterPlayer:remove()

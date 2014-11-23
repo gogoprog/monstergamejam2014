@@ -70,7 +70,8 @@ function Factory:createSpaceShip(camera)
         {
             camera = camera,
             straffingSound = gengine.audio.sound.get("moteur.break")
-        }
+        },
+        "outer_player"
         )
 
     return e
