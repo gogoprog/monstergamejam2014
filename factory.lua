@@ -58,6 +58,18 @@ function Factory:init()
         }
         )
 
+    texture = gengine.graphics.texture.create("data/farmer_idle.png")
+    atlas = gengine.graphics.atlas.create("farmerIdle", texture, 3, 1)
+    self.farmerIdleAnimation = gengine.graphics.animation.create(
+        "farmerIdle",
+        {
+            atlas = atlas,
+            frames = { 0, 1, 2 },
+            framerate = 4,
+            loop = true
+        }
+        )
+
     texture = gengine.graphics.texture.create("data/farmer_logo.png")
     atlas = gengine.graphics.atlas.create("farmerLogo", texture, 16, 1)
     self.farmerLogoAnimation = gengine.graphics.animation.create(
@@ -386,8 +398,8 @@ function Factory:createInnerPlayer()
     e:addComponent(
         ComponentAnimatedSprite(),
         {
-            animation = self.farmerDownAnimation,
-            extent = vector2(40, 32),
+            animation = self.farmerIdleAnimation,
+            extent = vector2(22, 22),
             layer = 2,
             world = 1
         },

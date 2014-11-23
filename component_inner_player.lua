@@ -10,6 +10,8 @@ function ComponentInnerPlayer:init()
     self.targetCol = 0
     self.targetRow = 0
     self.moving = false
+    self.idleTime = 0
+    self.idling = true
 end
 
 function ComponentInnerPlayer:insert()
@@ -31,6 +33,18 @@ function ComponentInnerPlayer:update(dt)
         if not move and keyboard:isDown(82) then
             move = move or self:tryMove(self.col, self.row + 1)
         end
+
+        if not self.moving then
+            self.idleTime = self.idleTime + dt
+
+            if self.idleTime > 0.4 then
+                self.idling = true
+                self.entity.animatedSprite:removeAnimations()
+                self.entity.animatedSprite:pushAnimation(Factory.farmerIdleAnimation)
+                self.entity.animatedSprite.extent = vector2(22, 22)
+                self.idleTime = 0
+            end
+        end
     else
         self.time = self.time + dt
         local p = self.entity.position
@@ -47,6 +61,7 @@ function ComponentInnerPlayer:update(dt)
             if Grid:isBonus(self.col, self.row) then
                 Grid:getBonus(self.col, self.row).bonus:pick()
             end
+
         end
     end
 end
@@ -63,6 +78,13 @@ function ComponentInnerPlayer:tryMove(c, r)
         self.duration = 0.2
         self.targetRow = r
         self.targetCol = c
+        if self.idling then
+            self.entity.animatedSprite:removeAnimations()
+            self.entity.animatedSprite:pushAnimation(Factory.farmerDownAnimation)
+            self.entity.animatedSprite.extent = vector2(40, 32)
+            self.idling = false
+            self.idleTime = 0
+        end
 
         return true
     end

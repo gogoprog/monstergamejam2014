@@ -10,7 +10,7 @@ function Game:init()
     Map:init()
     Grid:init(15, 15)
     self.logo = Factory:createLogo()
-
+    self.yeehaa = gengine.audio.sound.create("data/Yha.ogg")
     self:changeState("menu")
 end
 
@@ -52,6 +52,7 @@ function Game.onStateEnter:started()
     self.gauges[2] = g
 
     gengine.audio.playMusic("data/music.ogg")
+    gengine.audio.playSound(self.yeehaa)
 end
 
 function Game.onStateUpdate:started(dt)
