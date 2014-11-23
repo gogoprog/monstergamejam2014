@@ -100,6 +100,11 @@ function Grid:update(dt)
         self:putRandomEnemy(self.enemyToSpawn)
         self.enemyToSpawn = 0
     end
+
+    if self.collectedResources > 7 then
+        self.collectedResources = 0
+        self:newRound()
+    end
 end
 
 function Grid:getPosition(c, r)
