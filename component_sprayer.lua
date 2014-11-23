@@ -28,7 +28,7 @@ function ComponentSprayer.onStateEnter:spraying(dt)
     self.entity:insert()
     self.entity.animatedSprite:pushAnimation(self.entity.stillSprayingAnimation)
     self.entity.animatedSprite:pushAnimation(self.entity.startSprayingAnimation)
-    --gengine.audio.playSound(gengine.audio.sound.get("weapon.jet.start"))
+    gengine.audio.playSound(gengine.audio.sound.get("weapon.jet.start"))
 end
 
 function ComponentSprayer.onStateUpdate:spraying(dt)
@@ -49,9 +49,9 @@ function ComponentSprayer.onStateUpdate:spraying(dt)
         self.ammunition = 0
     end
 
-    if self.time > 1.5 then
+    if self.time > 1.1 then
         self.time = 0
-        -- gengine.audio.playSound(gengine.audio.sound.get("weapon.jet.continu"))
+        gengine.audio.playSound(gengine.audio.sound.get("weapon.jet.continu"))
     end
 end
 
