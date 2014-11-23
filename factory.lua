@@ -96,6 +96,7 @@ function Factory:init()
     gengine.audio.sound.create("data/weapon.jet.start.ogg")
     gengine.audio.sound.create("data/weapon.jet.continu.ogg")
     gengine.audio.sound.create("data/ship_destruction.ogg")
+    self.farmerDieSound = gengine.audio.sound.create("data/Dieredneckdie.ogg")
 end
 
 function Factory:createSpaceShip(camera)

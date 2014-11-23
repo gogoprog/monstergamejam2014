@@ -12,6 +12,7 @@ function ComponentInnerPlayer:init()
     self.moving = false
     self.idleTime = 0
     self.idling = true
+    self.isHunting = false
 end
 
 function ComponentInnerPlayer:insert()
@@ -62,6 +63,17 @@ function ComponentInnerPlayer:update(dt)
                 Grid:getBonus(self.col, self.row).bonus:pick()
             end
 
+        end
+    end
+
+    if not self.isHunting then
+        for k, v in ipairs(Grid.enemies) do
+            local p = self.entity.position
+            local op = v.position
+
+            if gengine.math.getSquareDistance(op, p) < 10 * 10 then
+                gengine.audio.playSound(Factory.farmerDieSound)
+            end
         end
     end
 end
