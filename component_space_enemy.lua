@@ -7,7 +7,7 @@ gengine.stateMachine(ComponentSpaceEnemy)
 function ComponentSpaceEnemy:init()
     self:changeState("alive")
     self.total = 0
-    self.backSpeed = 100
+    self.backSpeed = 100 + math.random(-80, 80)
     self.time = 0
     self.shootTime = math.random() * 2  + 1
     self.life = 100

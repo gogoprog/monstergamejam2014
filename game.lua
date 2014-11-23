@@ -37,6 +37,7 @@ end
 function Game.onStateExit:menu()
     gengine.gui.loadFile("about:blank")
     self.logo:remove()
+    self.title:remove()
 end
 
 function Game.onStateEnter:started()
