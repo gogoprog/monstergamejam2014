@@ -3,8 +3,10 @@ ComponentOuterPlayer = {}
 Map = Map or require 'Map'
 
 local mabs = math.abs
+gengine.stateMachine(ComponentOuterPlayer)
 
 function ComponentOuterPlayer:init()
+    self:changeState("alive")
     self.time = 0
     self.x_speed = 0
     self.x_maxSpeed = 10
@@ -23,6 +25,7 @@ function ComponentOuterPlayer:insert()
 end
 
 function ComponentOuterPlayer:update(dt)
+    self:updateState(dt)
     local e = self.entity
     local speedFactor = -8
     self.time = self.time + dt
@@ -30,55 +33,65 @@ function ComponentOuterPlayer:update(dt)
     local x,y = gengine.input.mouse:getPosition()
     local wx, wy = self.camera:getWorldPosition(x,y)
 
-    if mabs(wx) ~= 1/0 and mabs(wy) ~= 1/0 then
-        self.x_speed = (speedFactor * (wx - e.position.x)) * dt
-        self.y_speed = (speedFactor * (wy - Map.position - self.y)) * dt
+    if self.state == "alive" then
+        if mabs(wx) ~= 1/0 and mabs(wy) ~= 1/0 then
+            self.x_speed = (speedFactor * (wx - e.position.x)) * dt
+            self.y_speed = (speedFactor * (wy - Map.position - self.y)) * dt
 
-        if math.abs(self.x_speed) < self.x_minSpeed and math.abs(self.x_speed) > 0.1 then
-            if self.x_speed < 0 then
-                self.x_speed = self.x_minSpeed * -1
+            if math.abs(self.x_speed) < self.x_minSpeed and math.abs(self.x_speed) > 0.01 then
+                if self.x_speed < 0 then
+                    self.x_speed = self.x_minSpeed * -1
+                else
+                    self.x_speed = self.x_minSpeed
+                end
+            end
+
+            if self.x_speed > self.x_minSpeed then
+                self.entity.spaceShipAnimation:removeAnimations()
+                self.entity.spaceShipAnimation:pushAnimation(self.entity.spaceShipLeft)
+            elseif self.x_speed < -self.x_minSpeed then
+                self.entity.spaceShipAnimation:removeAnimations()
+                self.entity.spaceShipAnimation:pushAnimation(self.entity.spaceShipRight)
             else
-                self.x_speed = self.x_minSpeed
+                self.entity.spaceShipAnimation:removeAnimations()
+                self.entity.spaceShipAnimation:pushAnimation(self.entity.spaceShip)
+            end
+
+            e.position.x = e.position.x - self.x_speed
+            self.y = self.y - self.y_speed
+            e.position.y = self.y + Map.position
+
+            if e.position.x > self.rightBoundary then
+                e.position.x = self.rightBoundary
+                self.x_speed = 0
+            end
+
+            if e.position.x < self.leftBoundary then
+                e.position.x = self.leftBoundary
+                self.x_speed = 0
+            end
+
+            if math.abs(self.x_speed) > 9 and self.time > 0.9 then
+                self.time = 0
+                gengine.audio.playSound(self.straffingSound)
+            end
+
+            if self.life <= 0 then
+                self:changeState("dying")
+                print("dying")
             end
         end
 
-        if self.x_speed > 0.1 then
-            self.entity.sprite.texture = gengine.graphics.texture.get("spaceship_left")
-        elseif self.x_speed < -0.1 then
-            self.entity.sprite.texture = gengine.graphics.texture.get("spaceship_right")
-        else
-            self.entity.sprite.texture = gengine.graphics.texture.get("spaceship_empty")
+        if gengine.input.mouse:isDown(1) then
+            if self.sprayerEntity.sprayer.state == "idle" and self.sprayerEntity.sprayer.ammunition > 0 then
+                self.sprayerEntity.sprayer:changeState("spraying")
+            end
         end
-
-        e.position.x = e.position.x - self.x_speed
-        self.y = self.y - self.y_speed
-        e.position.y = self.y + Map.position
-
-        if e.position.x > self.rightBoundary then
-            e.position.x = self.rightBoundary
-            self.x_speed = 0
-        end
-
-        if e.position.x < self.leftBoundary then
-            e.position.x = self.leftBoundary
-            self.x_speed = 0
-        end
-
-        if math.abs(self.x_speed) > 9 and self.time > 0.9 then
-            self.time = 0
-            gengine.audio.playSound(self.straffingSound)
-        end
-    end
-
-    if gengine.input.mouse:isDown(1) then
-        if self.sprayerEntity.sprayer.state == "idle" and self.sprayerEntity.sprayer.ammunition > 0 then
-            self.sprayerEntity.sprayer:changeState("spraying")
-        end
-    end
-    
-    if gengine.input.mouse:isJustUp(1) then
-        if self.sprayerEntity.sprayer.state == "spraying" then
-            self.sprayerEntity.sprayer:changeState("stopSpraying")
+        
+        if gengine.input.mouse:isJustUp(1) then
+            if self.sprayerEntity.sprayer.state == "spraying" then
+                self.sprayerEntity.sprayer:changeState("stopSpraying")
+            end
         end
     end
 
@@ -89,10 +102,6 @@ end
 function ComponentOuterPlayer:takeDamage(amount)
     self.life = self.life - amount
     Grid.cameraEntity.shaker:shake(0.5)
-
-    if( self.life <= 0 ) then
-        --GAME OVER
-    end
 end
 
 function ComponentOuterPlayer:addAmmo(amount)
@@ -103,6 +112,20 @@ function ComponentOuterPlayer:addLife(count)
     self.life = self.life + count
 end
 
+function ComponentOuterPlayer.onStateEnter:dying(dt)
+    print("entering")
+    self.entity.spaceShipAnimation:removeAnimations()
+    self.entity.spaceShipAnimation:pushAnimation(self.entity.spaceShipExplosion)
+    self.time = 0
+end
+
+function ComponentOuterPlayer.onStateUpdate:dying(dt)
+    self.time = self.time + dt
+    if self.time > 1 then
+        self.entity.spaceShipAnimation:removeAnimations()
+        -- GAME OVER
+    end
+end
 
 function ComponentOuterPlayer:remove()
 end

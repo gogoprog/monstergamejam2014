@@ -55,19 +55,8 @@ function Factory:init()
         }
         )
 
-    texture = gengine.graphics.texture.create("data/farmer_up.png")
-    atlas = gengine.graphics.atlas.create("farmer_up", texture, 16, 1)
-    self.farmerUpAnimation = gengine.graphics.animation.create(
-        "farmerUp",
-        {
-            atlas = atlas,
-            frames = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 },
-            framerate = 16,
-            loop = true
-        }
-        )
-
     gengine.audio.sound.create("data/limace.fire.ogg")
+    gengine.audio.sound.create("data/limace.dead.ogg")
     gengine.audio.sound.create("data/moteur.break.ogg")
     gengine.audio.sound.create("data/bonus1.ogg")
     gengine.audio.sound.create("data/bonus2.ogg")
@@ -75,15 +64,58 @@ end
 
 function Factory:createSpaceShip(camera)
     local e = gengine.entity.create()
+    local texture = gengine.graphics.texture.create("data/spaceship_empty.png")
+    e.spaceShip = gengine.graphics.animation.create(
+        "spaceShip",
+        {
+            atlas = gengine.graphics.atlas.create("spaceship_empty", texture, 1, 1),
+            frames = { 0 },
+            framerate = 1,
+            loop = false
+        }
+        )
+
+    texture = gengine.graphics.texture.create("data/spaceship_left.png")
+    e.spaceShipLeft = gengine.graphics.animation.create(
+        "spaceShipLeft",
+        {
+            atlas = gengine.graphics.atlas.create("spaceship_left", texture, 1, 1),
+            frames = { 0 },
+            framerate = 1,
+            loop = false
+        }
+        )
+
+    texture = gengine.graphics.texture.create("data/spaceship_right.png")
+    e.spaceShipRight = gengine.graphics.animation.create(
+        "spaceShipRight",
+        {
+            atlas = gengine.graphics.atlas.create("spaceship_right", texture, 1, 1),
+            frames = { 0 },
+            framerate = 1,
+            loop = false
+        }
+        )
+
+    texture = gengine.graphics.texture.create("data/spaceship_explosion.png")
+    e.spaceShipExplosion = gengine.graphics.animation.create(
+        "spaceShipExplosion",
+        {
+            atlas = gengine.graphics.atlas.create("spaceship_explosion", texture, 16, 1),
+            frames = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 },
+            framerate = 32,
+            loop = false
+        }
+        )
 
     e:addComponent(
-        ComponentSprite(),
+        ComponentAnimatedSprite(),
         {
-            texture = gengine.graphics.texture.get("spaceship_empty"),
+            animation = e.spaceShipExplosion,
             extent = vector2(64, 64),
             layer = 0
         },
-        "sprite"
+        "spaceShipAnimation"
         )
 
     e:addComponent(
