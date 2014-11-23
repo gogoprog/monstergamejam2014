@@ -4,6 +4,7 @@ ComponentBullet = {}
 
 function ComponentBullet:init()
     self.speed = -100
+    self.damage = 3
 end
 
 function ComponentBullet:insert()

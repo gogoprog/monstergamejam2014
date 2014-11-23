@@ -50,6 +50,7 @@ function Factory:init()
         )
 
     gengine.audio.sound.create("data/limace.fire.ogg")
+    gengine.audio.sound.create("data/moteur.break.ogg")
 end
 
 function Factory:createSpaceShip(camera)
@@ -67,7 +68,8 @@ function Factory:createSpaceShip(camera)
     e:addComponent(
         ComponentOuterPlayer(),
         {
-            camera = camera
+            camera = camera,
+            straffingSound = gengine.audio.sound.get("moteur.break")
         }
         )
 
@@ -96,7 +98,7 @@ function Factory:createSprayer()
         }
         )
 
-    e.stillprayingAnimation = gengine.graphics.animation.create(
+    e.stillSprayingAnimation = gengine.graphics.animation.create(
         "stillSpraying",
         {
             atlas = stillFiringAtlas,
@@ -119,7 +121,7 @@ function Factory:createSprayer()
     e:addComponent(
         ComponentAnimatedSprite(),
         {
-            extent = vector2(16, 256),
+            extent = vector2(16, 128),
             layer = 0
         },
         "animatedSprite"

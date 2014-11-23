@@ -8,7 +8,8 @@ Map = {
     spaceSpeedFactor = 0.0000001,
     definition = nil,
     center = 256,
-    zoneSize = 600
+    zoneSize = 600,
+    enemies = {}
 }
 
 function Map:init()
@@ -81,6 +82,7 @@ function Map:onNewZone(definition)
             e.position.x = math.random(self.center - 200, self.center + 200)
             e.position.y = self.cameraEntity.position.y + 1 * self.zoneSize + math.random(-200, 200)
             e:insert()
+            self.enemies[#self.enemies+1] = e
         end
     end
 end

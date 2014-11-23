@@ -2,7 +2,7 @@ Factory = Factory or {}
 ComponentOuterPlayer = {}
 
 function ComponentOuterPlayer:init()
-    self.total = 0
+    self.time = 0
     self.speed = 0
     self.lastMousePosition = 0
     self.maxSpeed = 10
@@ -18,7 +18,7 @@ end
 function ComponentOuterPlayer:update(dt)
     local e = self.entity
     local speedFactor = -8
-    self.total = self.total + dt
+    self.time = self.time + dt
 
     local x,y = gengine.input.mouse:getPosition()
     local wx, wy = self.camera:getWorldPosition(x,y)
@@ -38,21 +38,28 @@ function ComponentOuterPlayer:update(dt)
 
         if e.position.x > self.rightBoundary then
             e.position.x = self.rightBoundary
+            self.speed = 0
         end
 
         if e.position.x < self.leftBoundary then
             e.position.x = self.leftBoundary
+            self.speed = 0
+        end
+
+        if math.abs(self.speed) > 9 and self.time > 0.9 then
+            self.time = 0
+            gengine.audio.playSound(self.straffingSound)
         end
     end
 
     if gengine.input.mouse:isJustDown(1) then
         if self.sprayerEntity.sprayer.state == "idle" then
-            self.sprayerEntity.sprayer:changeState("startSpraying")
+            self.sprayerEntity.sprayer:changeState("spraying")
         end
     end
     
     if gengine.input.mouse:isJustUp(1) then
-        if self.sprayerEntity.sprayer.state == "startSpraying" then
+        if self.sprayerEntity.sprayer.state == "spraying" then
             self.sprayerEntity.sprayer:changeState("stopSpraying")
         end
     end
@@ -61,7 +68,7 @@ function ComponentOuterPlayer:update(dt)
     end
 
     self.sprayerEntity.position.x = e.position.x
-    self.sprayerEntity.position.y = 160 + e.position.y
+    self.sprayerEntity.position.y = 96 + e.position.y
 end
 
 function ComponentOuterPlayer:remove()

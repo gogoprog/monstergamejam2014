@@ -8,6 +8,7 @@ function ComponentSpaceEnemy:init()
     self.backSpeed = 100
     self.time = 0
     self.shootTime = math.random() * 2  + 1
+    self.life = 100
 end
 
 function ComponentSpaceEnemy:insert()
@@ -23,7 +24,6 @@ function ComponentSpaceEnemy:update(dt)
     self.time = self.time + dt
 
     if self.time > self.shootTime then
-
         self.time = 0
         self.shootTime = math.random() * 2  + 1
         
@@ -35,12 +35,29 @@ function ComponentSpaceEnemy:update(dt)
     end
 
     if self.entity.position.y - Map.cameraEntity.position.y < -512 then
-        self.entity:remove()
-        gengine.entity.destroy(self.entity)
+        self:killIt()
     end
 end
 
 function ComponentSpaceEnemy:remove()
+end
+
+function ComponentSpaceEnemy:takeDamage(amount)
+    self.life = self.life - amount
+    if self.life <= 0 then
+        self:killIt()
+    end
+end
+
+function ComponentSpaceEnemy:killIt()
+    for k, v in ipairs(Map.enemies) do
+        if v == self.entity then
+            table.remove(Map.enemies, k)
+            break
+        end
+    end
+    self.entity:remove()
+    gengine.entity.destroy(self.entity)
 end
 
 return ComponentSpaceEnemy

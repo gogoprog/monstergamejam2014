@@ -1,9 +1,11 @@
 ComponentSprayer = ComponentSprayer or {}
+Map = Map or require 'map'
 
 gengine.stateMachine(ComponentSprayer)
 
 function ComponentSprayer:init()
     self:changeState("idle")
+    self.damage = 350
 end
 
 function ComponentSprayer:insert()
@@ -17,10 +19,21 @@ function ComponentSprayer:update(dt)
 	self:updateState(dt)
 end
 
-function ComponentSprayer.onStateEnter:startSpraying(dt)
+function ComponentSprayer.onStateEnter:spraying(dt)
     self.entity:insert()
-    self.entity.animatedSprite:pushAnimation(self.entity.stillprayingAnimation)
+    self.entity.animatedSprite:pushAnimation(self.entity.stillSprayingAnimation)
     self.entity.animatedSprite:pushAnimation(self.entity.startSprayingAnimation)
+end
+
+function ComponentSprayer.onStateUpdate:spraying(dt)
+    for k, v in ipairs(Map.enemies) do
+        if (v.position.x + 16 > self.entity.position.x - 8 and v.position.x - 16 < self.entity.position.x + 8)
+            and (v.position.x - 16 > self.entity.position.x - 16 and self.entity.position.x - 16 < self.entity.position.x +16)
+            and (v.position.y - 32 < self.entity.position.y + 64 and v.position.y - 32 > self.entity.position.y - 64) then
+            
+            v.enemy:takeDamage(self.damage * dt)
+        end
+    end
 end
 
 function ComponentSprayer.onStateEnter:stopSpraying(dt)
