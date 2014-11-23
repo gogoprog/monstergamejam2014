@@ -69,7 +69,6 @@ end
 function ComponentSpaceEnemy.onStateEnter:dying(dt)
     self.entity.sprite:removeAnimations()
     self.entity.sprite.extent = vector2(64, 64)
-    print("zizi")
     self.entity.sprite:pushAnimation(Factory.dyingMonsterAnimation)
     self.time = 0
 end
