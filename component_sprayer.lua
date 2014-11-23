@@ -42,7 +42,6 @@ function ComponentSprayer.onStateUpdate:spraying(dt)
         self:changeState("stopSpraying")
         self.ammunition = 0
     end
-    print(self.ammunition)
 end
 
 function ComponentSprayer.onStateEnter:stopSpraying(dt)
