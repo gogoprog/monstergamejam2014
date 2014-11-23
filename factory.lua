@@ -304,7 +304,7 @@ function Factory:createInnerPlayer()
         }
         )
 
-    e:addComponent(
+    --[[e:addComponent(
         ComponentPhysic(),
         {
             extent = vector2(30, 30),
@@ -313,7 +313,7 @@ function Factory:createInnerPlayer()
             friction = 1.3
         },
         "physic"
-        )
+        )]]
 
     return e
 end
