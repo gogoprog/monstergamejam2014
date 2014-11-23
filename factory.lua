@@ -82,6 +82,18 @@ function Factory:init()
         }
         )
 
+    texture = gengine.graphics.texture.create("data/titre.png")
+    atlas = gengine.graphics.atlas.create("titre", texture, 1, 1)
+    self.titleLogoAnimation = gengine.graphics.animation.create(
+        "titleLogoAnimation",
+        {
+            atlas = atlas,
+            frames = { 0 },
+            framerate = 1,
+            loop = true
+        }
+        )
+
     texture = gengine.graphics.texture.create("data/gauge1.png")
     gengine.graphics.atlas.create("gauge1", texture, 10, 1)
     texture = gengine.graphics.texture.create("data/gauge2.png")
@@ -498,6 +510,23 @@ function Factory:createLogo()
         {
             animation = self.farmerLogoAnimation,
             extent = vector2(512, 512),
+            layer = 10,
+            world = 1
+        },
+        "sprite"
+        )
+
+    return e
+end
+
+function Factory:createTitle()
+    local e = gengine.entity.create()
+
+    e:addComponent(
+        ComponentAnimatedSprite(),
+        {
+            animation = self.titleLogoAnimation,
+            extent = vector2(512, 128),
             layer = 10,
             world = 1
         },

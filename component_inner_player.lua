@@ -1,4 +1,3 @@
-
 ComponentInnerPlayer = {}
 
 function ComponentInnerPlayer:init()

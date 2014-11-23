@@ -8,7 +8,8 @@ Grid = Grid or {
     time = 0,
     duration = 1,
     enemyToSpawn = 0,
-    enemies = {}
+    enemies = {},
+    collectedResources = 0
 }
 
 function Grid:init(w, h)

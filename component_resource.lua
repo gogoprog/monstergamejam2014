@@ -1,5 +1,6 @@
 Factory = Factory or {}
 Map = Map or {}
+Grid = Grid or {}
 
 ComponentResource = ComponentResource or {}
 
@@ -17,9 +18,9 @@ function ComponentResource:update(dt)
         or self.entity.position.y - (self.hitbox.y / 2) > Map.ship.position.y + (Map.ship.outer_player.hitbox.y / 2)
         or self.entity.position.y + (self.hitbox.y / 2) < Map.ship.position.y - (Map.ship.outer_player.hitbox.y / 2)) then
 
-    self.entity:remove()
-    gengine.entity.destroy(self.entity)
-
+        self.entity:remove()
+        gengine.entity.destroy(self.entity)
+        Grid.collectedResources = Grid.collectedResources + 1
     end
 
 end
