@@ -28,6 +28,8 @@ function ComponentBonus:remove()
 end
 
 function ComponentBonus:pick()
+    Map.ship.outer_player:addAmmo(5)
+
     gengine.audio.playSound(self.sound)
     self.entity:remove()
     gengine.entity.destroy(self.entity)

@@ -126,6 +126,7 @@ function Factory:createSprayer()
         ComponentAnimatedSprite(),
         {
             extent = vector2(16, 256),
+            color = vector4(0.5, 0, 0.5, 0.75),
             layer = 0
         },
         "animatedSprite"

@@ -88,6 +88,10 @@ function ComponentOuterPlayer:takeDamage(amount)
     end
 end
 
+function ComponentOuterPlayer:addAmmo(amount)
+    self.sprayerEntity.sprayer.ammunition = self.sprayerEntity.sprayer.ammunition + amount
+end
+
 function ComponentOuterPlayer:remove()
 end
 
