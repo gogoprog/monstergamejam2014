@@ -10,9 +10,6 @@ function Grid:init(w, h)
     self.origin = vector2(self.center - self.width * self.tileSize * 0.5, - self.height * self.tileSize * 0.5)
 
     gengine.graphics.createWorlds(2)
-    gengine.physics.createWorlds(1)
-
-    gengine.physics.worlds[1]:setGravity(vector2(0, 0))
 
     self.background = Factory:createGridBackground()
     self.background:insert()
@@ -24,27 +21,6 @@ function Grid:init(w, h)
     self.farmer = Factory:createInnerPlayer()
     self.farmer.position.x, self.farmer.position.y = self:getPosition(0, 0)
     self.farmer:insert()
-
-    local wall
-    local offset = 256
-    wall = Factory:createInvisibleBlock(512, 32)
-    wall.position.x = self.center
-    wall.position.y = -offset
-    wall:insert()
-
-    wall = Factory:createInvisibleBlock(512, 32)
-    wall.position.x = self.center
-    wall.position.y = offset
-    wall:insert()
-
-    wall = Factory:createInvisibleBlock(32, 512)
-    wall.position.x = self.center - offset
-    wall:insert()
-
-    wall = Factory:createInvisibleBlock(32, 512)
-    wall.position.x = self.center + offset
-    wall:insert()
-
 
     self:putRandomTiles(50)
 end

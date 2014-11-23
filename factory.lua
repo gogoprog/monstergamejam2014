@@ -242,14 +242,6 @@ function Factory:createBlock()
         }
         )
 
-    e:addComponent(
-        ComponentPhysic(),
-        {
-            extent = vector2(32, 32),
-            type = "static"
-        }
-        )
-
     return e
 end
 
@@ -268,21 +260,6 @@ function Factory:createGridBackground()
 
     return e
 end
-
-function Factory:createInvisibleBlock(w, h)
-    local e = gengine.entity.create()
-
-    e:addComponent(
-        ComponentPhysic(),
-        {
-            extent = vector2(w, h),
-            type = "static"
-        }
-        )
-
-    return e
-end
-
 
 function Factory:createInnerPlayer()
     local e = gengine.entity.create()
@@ -303,17 +280,6 @@ function Factory:createInnerPlayer()
         {
         }
         )
-
-    --[[e:addComponent(
-        ComponentPhysic(),
-        {
-            extent = vector2(30, 30),
-            type = "dynamic",
-            density = 1,
-            friction = 1.3
-        },
-        "physic"
-        )]]
 
     return e
 end
