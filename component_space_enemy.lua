@@ -11,6 +11,7 @@ function ComponentSpaceEnemy:init()
     self.time = 0
     self.shootTime = math.random() * 2  + 1
     self.life = 100
+    self.collision_damage = 30
 end
 
 function ComponentSpaceEnemy:insert()
@@ -36,6 +37,19 @@ function ComponentSpaceEnemy:update(dt)
 
             gengine.audio.playSound(self.fireSound)
         end
+
+        if not(self.entity.position.x - 16 > Map.ship.position.x + 32
+            or self.entity.position.x + 16 < Map.ship.position.x - 32
+            or self.entity.position.y - 32 > Map.ship.position.y + 32
+            or self.entity.position.y + 32 < Map.ship.position.y - 32) then
+
+            self:takeDamage(self.life + 1)
+            Map.ship.outer_player:takeDamage(self.collision_damage)
+        end
+
+        if self.life <= 0 then
+            self:changeState("dying")
+        end
     end
 
     if self.entity.position.y - Map.cameraEntity.position.y < -512 then
@@ -51,9 +65,6 @@ end
 function ComponentSpaceEnemy:takeDamage(amount)
     if self.state == "alive" then
         self.life = self.life - amount
-        if self.life <= 0 then
-            self:changeState("dying")
-        end
     end
 end
 

@@ -42,8 +42,6 @@ function ComponentOuterPlayer:update(dt)
             end
         end
 
-        print(self.x_speed)
-
         if self.x_speed > 0.1 then
             self.entity.sprite.texture = gengine.graphics.texture.get("spaceship_left")
         elseif self.x_speed < -0.1 then
@@ -84,7 +82,7 @@ function ComponentOuterPlayer:update(dt)
         end
     end
 
-    self.sprayerEntity.position.x = e.position.x
+    self.sprayerEntity.position.x = e.position.x - 20
     self.sprayerEntity.position.y = 160 + e.position.y
 end
 
