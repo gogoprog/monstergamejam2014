@@ -33,9 +33,29 @@ end
 
 function Game.onStateEnter:started()
     Map:start()
+    self.gauges = {}
+    local g
+
+    g = Factory:createGauge(1)
+    g.position.y = 128
+    g:insert()
+    self.gauges[1] = g
+
+    g = Factory:createGauge(2)
+    g.position.y = -128
+    g:insert()
+    self.gauges[2] = g
 end
 
 function Game.onStateUpdate:started(dt)
     Map:update(dt)
     Grid:update(dt)
+end
+
+function Game.onStateExit:started()
+end
+
+function Game:setGaugeValue(id, value)
+    self.gauges[id].sprite.atlasItem = math.min(math.floor(value * 10), 9)
+    self.gauges[id].sprite:init()
 end

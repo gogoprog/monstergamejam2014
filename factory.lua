@@ -56,6 +56,11 @@ function Factory:init()
         }
         )
 
+    texture = gengine.graphics.texture.create("data/gauge1.png")
+    gengine.graphics.atlas.create("gauge1", texture, 10, 1)
+    texture = gengine.graphics.texture.create("data/gauge2.png")
+    gengine.graphics.atlas.create("gauge2", texture, 10, 1)
+
     gengine.audio.sound.create("data/limace.fire.ogg")
     gengine.audio.sound.create("data/limace.dead.ogg")
     gengine.audio.sound.create("data/moteur.break.ogg")
@@ -396,6 +401,24 @@ function Factory:createInnerEnemy()
         {
         },
         "enemy"
+        )
+
+    return e
+end
+
+function Factory:createGauge(id)
+    local e = gengine.entity.create()
+
+    e:addComponent(
+        ComponentSprite(),
+        {
+            atlas = gengine.graphics.atlas.get("gauge" .. id),
+            atlasItem = 1,
+            extent = vector2(32, 128),
+            layer = 3,
+            world = 1
+        },
+        "sprite"
         )
 
     return e

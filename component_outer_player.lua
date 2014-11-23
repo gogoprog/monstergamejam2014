@@ -19,6 +19,7 @@ function ComponentOuterPlayer:init()
     self.rightBoundary = 512 - 32
     self.sprayerEntity = Factory:createSprayer()
     self.life = 100
+    self.maxLife = 100
 end
 
 function ComponentOuterPlayer:insert()
@@ -104,11 +105,11 @@ function ComponentOuterPlayer:takeDamage(amount)
 end
 
 function ComponentOuterPlayer:addAmmo(amount)
-    self.sprayerEntity.sprayer.ammunition = self.sprayerEntity.sprayer.ammunition + amount
+    self.sprayerEntity.sprayer.ammunition = math.min(self.sprayerEntity.sprayer.ammunition + amount, self.sprayerEntity.sprayer.maxAmmo)
 end
 
 function ComponentOuterPlayer:addLife(count)
-    self.life = self.life + count
+    self.life = math.min(self.life + count, self.maxLife)
 end
 
 function ComponentOuterPlayer.onStateEnter:dying(dt)

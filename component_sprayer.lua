@@ -8,6 +8,7 @@ function ComponentSprayer:init()
     self.damage = 350
     self.consumption = 10
     self.ammunition = 100
+    self.maxAmmo = 100
 end
 
 function ComponentSprayer:insert()
@@ -19,6 +20,7 @@ end
 
 function ComponentSprayer:update(dt)
     self:updateState(dt)
+    Game:setGaugeValue(1, self.ammunition / self.maxAmmo)
 end
 
 function ComponentSprayer.onStateEnter:spraying(dt)
@@ -43,6 +45,7 @@ function ComponentSprayer.onStateUpdate:spraying(dt)
         self:changeState("stopSpraying")
         self.ammunition = 0
     end
+
 end
 
 function ComponentSprayer.onStateEnter:stopSpraying(dt)
