@@ -3,6 +3,7 @@ ComponentSpaceEnemy = ComponentSpaceEnemy or require 'component_space_enemy'
 ComponentBullet = ComponentBullet or require 'component_bullet'
 ComponentSprayer = ComponentSprayer or require 'component_sprayer'
 require 'component_inner_player'
+require 'component_bonus'
 
 Factory = Factory or {}
 
@@ -240,6 +241,28 @@ function Factory:createBlock()
             extent = vector2(32, 32),
             layer = 1,
             world = 1
+        }
+        )
+
+    return e
+end
+
+function Factory:createGridBonus()
+    local e = gengine.entity.create()
+
+    e:addComponent(
+        ComponentSprite(),
+        {
+            texture = gengine.graphics.texture.get("inner_bonus"),
+            extent = vector2(32, 32),
+            layer = 1,
+            world = 1
+        }
+        )
+
+    e:addComponent(
+        ComponentBonus(),
+        {
         }
         )
 

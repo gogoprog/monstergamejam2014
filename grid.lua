@@ -3,7 +3,9 @@ require 'grid_definitions'
 Grid = Grid or {
     center = -256,
     blocks = {},
-    tileSize = 32
+    bonuses = {},
+    tileSize = 32,
+    time = 0
 }
 
 function Grid:init(w, h)
@@ -40,21 +42,35 @@ function Grid:putRandomTiles(count)
     end
 end
 
+function Grid:putRandomBonus(count)
+    while count > 0 do
+        local x, y = math.random(0, self.width - 1), math.random(0, self.height - 1)
+        if not self:isBlocked(x, y) then
+            local e = Factory:createGridBonus()
+            e.position.x, e.position.y = self:getPosition(x, y)
+            e:insert()
+            self.bonuses[y * self.width + x] = e
+            count = count - 1
+        end
+    end
+end
+
 function Grid:load(definition)
     local blocks = self.blocks
     for k, v in ipairs(definition) do
         local n = k - 1
         if v > 0 then
-            blocks[k] = true
             local e = Factory:createBlock()
-            e.position.x, e.position.y = self:getPosition(n % self.width, math.floor(n / self.height))
+            local c, r = n % self.width, math.floor(n / self.width)
+            e.position.x, e.position.y = self:getPosition(c, r)
+            blocks[r * self.width + c] = true
             e:insert()
         end
     end
 end
 
 function Grid:update(dt)
-    self.farmer.rotation = 0
+    self.time = self.time + dt
 end
 
 function Grid:getPosition(c, r)
