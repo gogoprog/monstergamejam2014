@@ -57,12 +57,7 @@ function ComponentInnerEnemy:update(dt)
 end
 
 function ComponentInnerEnemy:remove()
-    for k, v in ipairs(Grid.enemies) do
-        if v == self.entity then
-            table.remove(Grid.enemies, k)
-            break
-        end
-    end
+
 end
 
 function ComponentInnerEnemy:tryMove(c, r)
