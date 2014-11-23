@@ -31,7 +31,7 @@ end
 
 local effects = {
     function()
-        Map.ship.outer_player:addAmmo(5)
+        Map.ship.outer_player:addAmmo(10)
     end,
     function()
         Map.ship.outer_player:addLife(5)
