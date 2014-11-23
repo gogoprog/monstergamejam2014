@@ -31,8 +31,6 @@ function ComponentOuterPlayer:update(dt)
         self.x_speed = (speedFactor * (wx - e.position.x)) * dt
         self.y_speed = (speedFactor * (wy - Map.position - self.y)) * dt
 
-        print(self.y_speed)
-
         if math.abs(self.x_speed) < self.x_minSpeed and math.abs(self.x_speed) > 0.1 then
             if self.x_speed < 0 then
                 self.x_speed = self.x_minSpeed * -1
