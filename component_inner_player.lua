@@ -44,6 +44,9 @@ function ComponentInnerPlayer:update(dt)
             self.col = self.targetCol
             self.row = self.targetRow
             self.moving = false
+            if Grid:isBonus(self.col, self.row) then
+                Grid:getBonus(self.col, self.row).bonus:pick()
+            end
         end
     end
 end

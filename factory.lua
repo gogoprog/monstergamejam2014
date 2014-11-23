@@ -53,6 +53,7 @@ function Factory:init()
 
     gengine.audio.sound.create("data/limace.fire.ogg")
     gengine.audio.sound.create("data/moteur.break.ogg")
+    gengine.audio.sound.create("data/bonus1.ogg")
 end
 
 function Factory:createSpaceShip(camera)
@@ -264,7 +265,9 @@ function Factory:createGridBonus()
     e:addComponent(
         ComponentBonus(),
         {
-        }
+            sound = gengine.audio.sound.get("bonus1")
+        },
+        "bonus"
         )
 
     return e

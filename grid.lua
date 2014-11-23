@@ -90,3 +90,7 @@ end
 function Grid:isBonus(c, r)
     return self.bonuses[r * self.width + c]
 end
+
+function Grid:getBonus(c, r)
+    return self.bonuses[r * self.width + c]
+end
