@@ -35,7 +35,7 @@ function Game.onStateUpdate:menu(dt)
 end
 
 function Game.onStateExit:menu()
-    gengine.gui.loadFile("about:blank")
+    gengine.gui.loadFile("gui/blank_menu.html")
     self.logo:remove()
     self.title:remove()
 end
