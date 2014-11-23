@@ -47,7 +47,7 @@ function Grid:putRandomBonus(count)
     while count > 0 do
         local x, y = math.random(0, self.width - 1), math.random(0, self.height - 1)
         if not self:isBlocked(x, y) and not self:isBonus(x, y) then
-            local e = Factory:createGridBonus()
+            local e = Factory:createGridBonus(math.random(1, 2))
             e.position.x, e.position.y = self:getPosition(x, y)
             e:insert()
             self.bonuses[y * self.width + x] = e

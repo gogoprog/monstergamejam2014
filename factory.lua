@@ -13,7 +13,8 @@ function Factory:init()
     gengine.graphics.texture.create("data/monster1_fire.png")
     gengine.graphics.texture.create("data/inner_background.png")
     gengine.graphics.texture.create("data/inner_tile.png")
-    gengine.graphics.texture.create("data/inner_bonus.png")
+    gengine.graphics.texture.create("data/inner_bonus1.png")
+    gengine.graphics.texture.create("data/inner_bonus2.png")
 
     local texture = gengine.graphics.texture.create("data/monster1.png")
 
@@ -67,6 +68,7 @@ function Factory:init()
     gengine.audio.sound.create("data/limace.fire.ogg")
     gengine.audio.sound.create("data/moteur.break.ogg")
     gengine.audio.sound.create("data/bonus1.ogg")
+    gengine.audio.sound.create("data/bonus2.ogg")
 end
 
 function Factory:createSpaceShip(camera)
@@ -269,13 +271,13 @@ function Factory:createBlock()
     return e
 end
 
-function Factory:createGridBonus()
+function Factory:createGridBonus(id)
     local e = gengine.entity.create()
 
     e:addComponent(
         ComponentSprite(),
         {
-            texture = gengine.graphics.texture.get("inner_bonus"),
+            texture = gengine.graphics.texture.get("inner_bonus" .. id),
             extent = vector2(32, 32),
             layer = 1,
             world = 1
@@ -285,7 +287,8 @@ function Factory:createGridBonus()
     e:addComponent(
         ComponentBonus(),
         {
-            sound = gengine.audio.sound.get("bonus1")
+            sound = gengine.audio.sound.get("bonus" .. id),
+            id = id
         },
         "bonus"
         )

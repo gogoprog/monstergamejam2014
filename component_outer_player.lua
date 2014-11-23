@@ -91,6 +91,11 @@ function ComponentOuterPlayer:addAmmo(amount)
     self.sprayerEntity.sprayer.ammunition = self.sprayerEntity.sprayer.ammunition + amount
 end
 
+function ComponentOuterPlayer:addLife(count)
+    self.life = self.life + count
+end
+
+
 function ComponentOuterPlayer:remove()
 end
 

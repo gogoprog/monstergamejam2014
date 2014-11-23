@@ -27,9 +27,16 @@ function ComponentBonus:remove()
     end
 end
 
+local effects = {
+    function()
+        Map.ship.outer_player:addAmmo(5)
+    end,
+    function()
+        Map.ship.outer_player:addLife(5)
+    end
+}
 function ComponentBonus:pick()
-    Map.ship.outer_player:addAmmo(5)
-
+    effects[self.id]()
     gengine.audio.playSound(self.sound)
     self.entity:remove()
     gengine.entity.destroy(self.entity)
