@@ -6,10 +6,12 @@ Game = {}
 gengine.stateMachine(Game)
 
 function Game:init()
-    self:changeState("menu")
     Factory:init()
     Map:init()
     Grid:init(15, 15)
+    self.logo = Factory:createLogo()
+
+    self:changeState("menu")
 end
 
 function Game:update(dt)
@@ -18,7 +20,9 @@ end
 
 function Game.onStateEnter:menu()
     gengine.gui.loadFile("gui/menu.html")
-    gengine.audio.playMusic("data/menu.ogg") 
+    gengine.audio.playMusic("data/menu.ogg")
+
+    self.logo:insert()
 end
 
 function Game.onStateUpdate:menu(dt)
@@ -29,6 +33,7 @@ end
 
 function Game.onStateExit:menu()
     gengine.gui.loadFile("about:blank")
+    self.logo:remove()
 end
 
 function Game.onStateEnter:started()
@@ -45,6 +50,8 @@ function Game.onStateEnter:started()
     g.position.y = -128
     g:insert()
     self.gauges[2] = g
+
+    gengine.audio.playMusic("data/music.ogg")
 end
 
 function Game.onStateUpdate:started(dt)
