@@ -318,7 +318,8 @@ function Factory:createGridBonus(id)
             extent = vector2(32, 32),
             layer = 1,
             world = 1
-        }
+        },
+        "sprite"
         )
 
     e:addComponent(

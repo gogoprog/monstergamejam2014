@@ -12,6 +12,8 @@ function ComponentBonus:update(dt)
 
     self.timeLeft = self.timeLeft - dt
 
+    self.entity.sprite.alpha = self.timeLeft / 5
+
     if self.timeLeft < 0 then
         self.entity:remove()
         gengine.entity.destroy(self.entity)
