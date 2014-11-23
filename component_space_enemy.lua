@@ -23,34 +23,7 @@ function ComponentSpaceEnemy:update(dt)
     self.entity.position.x = self.basePosition.x + math.sin(self.total * 2) * 50
 
     self.entity.position.y = self.entity.position.y + self.backSpeed * dt
-
     self.time = self.time + dt
-
-    if self.state == "alive" then
-        if self.time > self.shootTime then
-            self.time = 0
-            self.shootTime = math.random() * 2  + 1
-            
-            local e = Factory:createBullet(-200)
-            e:insert()
-            e.position = vector2(self.entity.position.x, self.entity.position.y)
-
-            gengine.audio.playSound(self.fireSound)
-        end
-
-        if not(self.entity.position.x - 16 > Map.ship.position.x + 32
-            or self.entity.position.x + 16 < Map.ship.position.x - 32
-            or self.entity.position.y - 32 > Map.ship.position.y + 32
-            or self.entity.position.y + 32 < Map.ship.position.y - 32) then
-
-            self:takeDamage(self.life + 1)
-            Map.ship.outer_player:takeDamage(self.collision_damage)
-        end
-
-        if self.life <= 0 then
-            self:changeState("dying")
-        end
-    end
 
     if self.entity.position.y - Map.cameraEntity.position.y < -512 then
         self:killIt()
@@ -77,6 +50,32 @@ function ComponentSpaceEnemy:killIt()
     end
     self.entity:remove()
     gengine.entity.destroy(self.entity)
+end
+
+function ComponentSpaceEnemy.onStateUpdate:alive(dt)
+    if self.time > self.shootTime then
+        self.time = 0
+        self.shootTime = math.random() * 2  + 1
+        
+        local e = Factory:createBullet(-200)
+        e:insert()
+        e.position = vector2(self.entity.position.x, self.entity.position.y)
+
+        gengine.audio.playSound(self.fireSound)
+
+        if not(self.entity.position.x - 16 > Map.ship.position.x + 32
+            or self.entity.position.x + 16 < Map.ship.position.x - 32
+            or self.entity.position.y - 32 > Map.ship.position.y + 32
+            or self.entity.position.y + 32 < Map.ship.position.y - 32) then
+
+            self:takeDamage(self.life + 1)
+            Map.ship.outer_player:takeDamage(self.collision_damage)
+        end
+
+        if self.life <= 0 then
+            self:changeState("dying")
+        end
+    end
 end
 
 function ComponentSpaceEnemy.onStateEnter:dying(dt)

@@ -31,10 +31,6 @@ function ComponentOuterPlayer:update(dt)
     local speedFactor = -8
     self.time = self.time + dt
 
-    if self.time > 1.4 then
-        gengine.audio.playSound(gengine.audio.sound.get("moteur.drive"))
-    end
-
     local x,y = gengine.input.mouse:getPosition()
     local wx, wy = self.camera:getWorldPosition(x,y)
 
