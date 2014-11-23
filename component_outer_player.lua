@@ -83,6 +83,8 @@ end
 
 function ComponentOuterPlayer:takeDamage(amount)
     self.life = self.life - amount
+    Grid.cameraEntity.shaker:shake(0.5)
+
     if( self.life <= 0 ) then
         --GAME OVER
     end

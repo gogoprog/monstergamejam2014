@@ -4,6 +4,7 @@ ComponentBullet = ComponentBullet or require 'component_bullet'
 ComponentSprayer = ComponentSprayer or require 'component_sprayer'
 require 'component_inner_player'
 require 'component_bonus'
+require 'component_shaker'
 
 Factory = Factory or {}
 
@@ -185,6 +186,12 @@ function Factory:createCamera(w)
         "camera"
         )
 
+    e:addComponent(
+        ComponentShaker(),
+        {
+        },
+        "shaker"
+        )
     return e
 end
 
