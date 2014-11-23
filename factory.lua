@@ -289,7 +289,7 @@ function Factory:createInnerPlayer()
         ComponentAnimatedSprite(),
         {
             animation = self.farmerDownAnimation,
-            extent = vector2(80, 64),
+            extent = vector2(40, 32),
             layer = 2,
             world = 1
         },
@@ -305,7 +305,7 @@ function Factory:createInnerPlayer()
     e:addComponent(
         ComponentPhysic(),
         {
-            extent = vector2(32, 32),
+            extent = vector2(30, 30),
             type = "dynamic",
             density = 1,
             friction = 1.3

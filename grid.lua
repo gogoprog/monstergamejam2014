@@ -24,7 +24,7 @@ function Grid:init(w, h)
     self.farmer:insert()
 
     local wall
-    local offset = 256 - 16
+    local offset = 256
     wall = Factory:createInvisibleBlock(512, 32)
     wall.position.x = self.center
     wall.position.y = -offset
@@ -46,19 +46,23 @@ function Grid:init(w, h)
 
     self.origin = vector2(self.center - self.width * self.tileSize * 0.5, - self.height * self.tileSize * 0.5)
 
-    self:putRandomTiles(5)
+    self:putRandomTiles(50)
 end
 
 function Grid:putRandomTiles(count)
     while count > 0 do
-        local x, y = math.random(0, self.width), math.random(0, self.height)
+        local x, y = math.random(0, self.width - 1), math.random(0, self.height - 1)
         if not self.blocks[y * self.width + x] then
             self.blocks[y * self.width + x] = true
             local e = Factory:createBlock()
-            e.position.x = self.origin.x + self.tileSize * x
-            e.position.y = self.origin.y + self.tileSize * y
+            e.position.x = self.origin.x + self.tileSize * (x + 0.5)
+            e.position.y = self.origin.y + self.tileSize * (y + 0.5)
             e:insert()
             count = count - 1
         end
     end
+end
+
+function Grid:update(dt)
+    self.farmer.rotation = 0
 end

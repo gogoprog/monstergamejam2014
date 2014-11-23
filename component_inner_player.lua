@@ -2,7 +2,7 @@
 ComponentInnerPlayer = {}
 
 function ComponentInnerPlayer:init()
-
+    self.force = vector2(0, 0)
 end
 
 function ComponentInnerPlayer:insert()
@@ -13,18 +13,22 @@ function ComponentInnerPlayer:update(dt)
 
     local f = 100000000
 
-    if keyboard:isJustDown(79) then
-        self.entity.physic:applyForceToCenter(vector2(f, 0))
+    self.force:set(0, 0)
+
+    if keyboard:isDown(79) then
+        self.force.x = f
     end
-    if keyboard:isJustDown(80) then
-        self.entity.physic:applyForceToCenter(vector2(-f, 0))
+    if keyboard:isDown(80) then
+        self.force.x = -f
     end
-    if keyboard:isJustDown(81) then
-        self.entity.physic:applyForceToCenter(vector2(0, -f))
+    if keyboard:isDown(81) then
+        self.force.y = -f
     end
-    if keyboard:isJustDown(82) then
-        self.entity.physic:applyForceToCenter(vector2(0, f))
+    if keyboard:isDown(82) then
+        self.force.y = f
     end
+
+    self.entity.physic:applyLinearImpulse(self.force, vector2(0,0))
 end
 
 function ComponentInnerPlayer:remove()
