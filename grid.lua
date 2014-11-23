@@ -7,7 +7,8 @@ Grid = Grid or {
     tileSize = 32,
     time = 0,
     duration = 1,
-    enemyToSpawn = 0
+    enemyToSpawn = 0,
+    enemies = {}
 }
 
 function Grid:init(w, h)
@@ -67,6 +68,7 @@ function Grid:putRandomEnemy(count)
             e.enemy.col = x
             e.enemy.row = y
             count = count - 1
+            table.insert(self.enemies, e)
         end
     end
 end
