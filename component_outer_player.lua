@@ -83,6 +83,7 @@ function ComponentOuterPlayer:update(dt)
 
         if self.state == "alive" then
             if self.life <= 0 then
+                self.life = 0
                 self:changeState("dying")
             end
 

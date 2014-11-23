@@ -82,15 +82,15 @@ function Factory:init()
         }
         )
 
-    texture = gengine.graphics.texture.create("data/titre.png")
-    atlas = gengine.graphics.atlas.create("titre", texture, 1, 1)
-    self.titleLogoAnimation = gengine.graphics.animation.create(
-        "titleLogoAnimation",
+    texture = gengine.graphics.texture.create("data/farmer_dead.png")
+    atlas = gengine.graphics.atlas.create("farmerDead", texture, 16, 1)
+    self.farmerDeadAnimation = gengine.graphics.animation.create(
+        "farmerDead",
         {
             atlas = atlas,
-            frames = { 0 },
-            framerate = 1,
-            loop = true
+            frames = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 },
+            framerate = 10,
+            loop = false
         }
         )
 

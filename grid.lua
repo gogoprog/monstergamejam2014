@@ -117,3 +117,11 @@ end
 function Grid:getBonus(c, r)
     return self.bonuses[r * self.width + c]
 end
+
+function Grid:newRound()
+    for k, v in ipairs(self.enemies) do
+        v:remove()
+        gengine.entity.destroy(v)
+    end
+    self.enemies = {}
+end
