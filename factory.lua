@@ -121,7 +121,7 @@ function Factory:createSprayer()
     e:addComponent(
         ComponentAnimatedSprite(),
         {
-            extent = vector2(16, 128),
+            extent = vector2(16, 256),
             layer = 0
         },
         "animatedSprite"
