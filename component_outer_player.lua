@@ -62,7 +62,7 @@ function ComponentOuterPlayer:update(dt)
         end
     end
 
-    if gengine.input.mouse:isJustDown(1) then
+    if gengine.input.mouse:isDown(1) then
         if self.sprayerEntity.sprayer.state == "idle" and self.sprayerEntity.sprayer.ammunition > 0 then
             self.sprayerEntity.sprayer:changeState("spraying")
         end
@@ -72,9 +72,6 @@ function ComponentOuterPlayer:update(dt)
         if self.sprayerEntity.sprayer.state == "spraying" then
             self.sprayerEntity.sprayer:changeState("stopSpraying")
         end
-    end
-
-    if gengine.input.mouse:isJustDown(3) then
     end
 
     self.sprayerEntity.position.x = e.position.x

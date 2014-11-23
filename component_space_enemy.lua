@@ -2,8 +2,10 @@ Factory = Factory or {}
 Map = Map or {}
 
 ComponentSpaceEnemy = {}
+gengine.stateMachine(ComponentSpaceEnemy)
 
 function ComponentSpaceEnemy:init()
+    self:changeState("alive")
     self.total = 0
     self.backSpeed = 100
     self.time = 0
@@ -23,20 +25,24 @@ function ComponentSpaceEnemy:update(dt)
 
     self.time = self.time + dt
 
-    if self.time > self.shootTime then
-        self.time = 0
-        self.shootTime = math.random() * 2  + 1
-        
-        local e = Factory:createBullet(-200)
-        e:insert()
-        e.position = vector2(self.entity.position.x, self.entity.position.y)
+    if self.state == "alive" then
+        if self.time > self.shootTime then
+            self.time = 0
+            self.shootTime = math.random() * 2  + 1
+            
+            local e = Factory:createBullet(-200)
+            e:insert()
+            e.position = vector2(self.entity.position.x, self.entity.position.y)
 
-        gengine.audio.playSound(self.fireSound)
+            gengine.audio.playSound(self.fireSound)
+        end
     end
 
     if self.entity.position.y - Map.cameraEntity.position.y < -512 then
         self:killIt()
     end
+
+    self:updateState(dt)
 end
 
 function ComponentSpaceEnemy:remove()
@@ -45,7 +51,7 @@ end
 function ComponentSpaceEnemy:takeDamage(amount)
     self.life = self.life - amount
     if self.life <= 0 then
-        self:killIt()
+        self:changeState("dying")
     end
 end
 
@@ -58,6 +64,21 @@ function ComponentSpaceEnemy:killIt()
     end
     self.entity:remove()
     gengine.entity.destroy(self.entity)
+end
+
+function ComponentSpaceEnemy.onStateEnter:dying(dt)
+    self.entity.sprite:removeAnimations()
+    self.entity.sprite.extent = vector2(64, 64)
+    print("zizi")
+    self.entity.sprite:pushAnimation(Factory.dyingMonsterAnimation)
+    self.time = 0
+end
+
+function ComponentSpaceEnemy.onStateUpdate:dying(dt)
+    self.time = self.time + dt
+    if self.time > 1 then
+        self:killIt()
+    end
 end
 
 return ComponentSpaceEnemy

@@ -28,6 +28,18 @@ function Factory:init()
         }
         )
 
+    texture = gengine.graphics.texture.create("data/monster1_death.png")
+    atlas = gengine.graphics.atlas.create("farmer_down", texture, 16, 1)
+    self.dyingMonsterAnimation = gengine.graphics.animation.create(
+        "dyingMonsterAnimation",
+        {
+            atlas = atlas,
+            frames = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 },
+            framerate = 16,
+            loop = false
+        }
+        )
+
     texture = gengine.graphics.texture.create("data/farmer_down.png")
     atlas = gengine.graphics.atlas.create("farmer_down", texture, 16, 1)
     self.farmerDownAnimation = gengine.graphics.animation.create(
