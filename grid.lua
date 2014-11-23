@@ -5,7 +5,8 @@ Grid = Grid or {
     blocks = {},
     bonuses = {},
     tileSize = 32,
-    time = 0
+    time = 0,
+    duration = 1
 }
 
 function Grid:init(w, h)
@@ -71,6 +72,11 @@ end
 
 function Grid:update(dt)
     self.time = self.time + dt
+
+    if self.time >= self.duration then
+        self:putRandomBonus(1)
+        self.time = 0
+    end
 end
 
 function Grid:getPosition(c, r)

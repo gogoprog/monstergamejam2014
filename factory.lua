@@ -12,6 +12,7 @@ function Factory:init()
     gengine.graphics.texture.create("data/monster1_fire.png")
     gengine.graphics.texture.create("data/inner_background.png")
     gengine.graphics.texture.create("data/inner_tile.png")
+    gengine.graphics.texture.create("data/inner_bonus.png")
 
     local texture = gengine.graphics.texture.create("data/monster1.png")
 
