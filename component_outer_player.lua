@@ -78,7 +78,6 @@ function ComponentOuterPlayer:update(dt)
 
             if self.life <= 0 then
                 self:changeState("dying")
-                print("dying")
             end
         end
 
@@ -113,16 +112,17 @@ function ComponentOuterPlayer:addLife(count)
 end
 
 function ComponentOuterPlayer.onStateEnter:dying(dt)
-    print("entering")
     self.entity.spaceShipAnimation:removeAnimations()
     self.entity.spaceShipAnimation:pushAnimation(self.entity.spaceShipExplosion)
     self.time = 0
+    gengine.audio.playSound(gengine.audio.sound.get("ship_destruction"))
 end
 
 function ComponentOuterPlayer.onStateUpdate:dying(dt)
     self.time = self.time + dt
-    if self.time > 1 then
+    if self.time > 2 then
         self.entity.spaceShipAnimation:removeAnimations()
+        self.entity:remove()
         -- GAME OVER
     end
 end

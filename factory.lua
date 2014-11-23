@@ -61,6 +61,9 @@ function Factory:init()
     gengine.audio.sound.create("data/moteur.break.ogg")
     gengine.audio.sound.create("data/bonus1.ogg")
     gengine.audio.sound.create("data/bonus2.ogg")
+    gengine.audio.sound.create("data/weapon.jet.start.ogg")
+    gengine.audio.sound.create("data/weapon.jet.continu.ogg")
+    gengine.audio.sound.create("data/ship_destruction.ogg")
 end
 
 function Factory:createSpaceShip(camera)
@@ -104,7 +107,7 @@ function Factory:createSpaceShip(camera)
         {
             atlas = gengine.graphics.atlas.create("spaceship_explosion", texture, 16, 1),
             frames = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 },
-            framerate = 32,
+            framerate = 8,
             loop = false
         }
         )
