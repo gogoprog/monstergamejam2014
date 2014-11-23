@@ -5,6 +5,7 @@ ComponentSprayer = ComponentSprayer or require 'component_sprayer'
 require 'component_inner_player'
 require 'component_bonus'
 require 'component_shaker'
+require 'component_inner_enemy'
 
 Factory = Factory or {}
 
@@ -186,7 +187,8 @@ function Factory:createSprayer()
         ComponentSprayer(),
         {
         },
-        "sprayer")
+        "sprayer"
+        )
 
     return e
 end
@@ -365,6 +367,31 @@ function Factory:createInnerPlayer()
         ComponentInnerPlayer(),
         {
         }
+        )
+
+    return e
+end
+
+
+function Factory:createInnerEnemy()
+    local e = gengine.entity.create()
+
+    e:addComponent(
+        ComponentAnimatedSprite(),
+        {
+            animation = self.monsterAnimation,
+            extent = vector2(32, -32),
+            layer = 1,
+            world = 1
+        },
+        "sprite"
+        )
+
+    e:addComponent(
+        ComponentInnerEnemy(),
+        {
+        },
+        "enemy"
         )
 
     return e

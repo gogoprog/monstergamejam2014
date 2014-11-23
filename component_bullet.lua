@@ -26,6 +26,7 @@ function ComponentBullet:update(dt)
         self.entity:remove()
         gengine.entity.destroy(self.entity)
         Map.ship.outer_player:takeDamage(self.damage)
+        Grid.enemyToSpawn = Grid.enemyToSpawn + 1
     end
 end
 

@@ -18,6 +18,7 @@ end
 
 function Game.onStateEnter:menu()
     gengine.gui.loadFile("gui/menu.html")
+    gengine.audio.playMusic("data/menu.ogg") 
 end
 
 function Game.onStateUpdate:menu(dt)

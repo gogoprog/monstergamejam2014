@@ -6,7 +6,8 @@ Grid = Grid or {
     bonuses = {},
     tileSize = 32,
     time = 0,
-    duration = 1
+    duration = 1,
+    enemyToSpawn = 0
 }
 
 function Grid:init(w, h)
@@ -56,6 +57,20 @@ function Grid:putRandomBonus(count)
     end
 end
 
+function Grid:putRandomEnemy(count)
+    while count > 0 do
+        local x, y = math.random(0, self.width - 1), math.random(0, self.height - 1)
+        if not self:isBlocked(x, y) then
+            local e = Factory:createInnerEnemy()
+            e.position.x, e.position.y = self:getPosition(x, y)
+            e:insert()
+            e.enemy.col = x
+            e.enemy.row = y
+            count = count - 1
+        end
+    end
+end
+
 function Grid:load(definition)
     local blocks = self.blocks
     for k, v in ipairs(definition) do
@@ -76,6 +91,11 @@ function Grid:update(dt)
     if self.time >= self.duration then
         self:putRandomBonus(1)
         self.time = 0
+    end
+
+    if self.enemyToSpawn then
+        self:putRandomEnemy(self.enemyToSpawn)
+        self.enemyToSpawn = 0
     end
 end
 

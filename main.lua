@@ -4,6 +4,7 @@ require 'game'
 function init()
     gengine.application.setName("mgj")
     gengine.application.setExtent(1024, 600)
+    --gengine.application.setExtent(1600, 900)
 end
 
 function start()
