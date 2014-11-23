@@ -49,6 +49,10 @@ function Map:init()
     self.zones[2]:insert()
     self.zones[2].position.x = self.center
     self.zones[2].position.y = 1 * self.zoneSize
+
+end
+
+function Map:start()
     self.zoneIndex = 1
     self:onNewZone(self.definition.zones[self.zoneIndex])
 

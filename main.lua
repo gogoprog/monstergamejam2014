@@ -1,6 +1,5 @@
-Map = Map or require 'map'
-Factory = Factory or require 'factory'
 require 'grid'
+require 'game'
 
 function init()
     gengine.application.setName("mgj")
@@ -9,15 +8,11 @@ end
 
 function start()
     gengine.graphics.setClearColor(0,0.1,0.1,1)
-    Factory:init()
-    Map:init()
-    Grid:init(15, 15)
+    Game:init()
 end
 
 function update(dt)
-    Map:update(dt)
-    Grid:update(dt)
-
+    Game:update(dt)
     if gengine.input.keyboard:isJustDown(41) then
         gengine.application.quit()
     end
